@@ -3,8 +3,10 @@ sort(arr, arr+n, greater<int>());
 sort(s2.begin(), s2.end(), greater<char>());
 //sort by descending order
 
+```
 freopen("input.txt", "r", stdin);
 freopen("output.txt", "w", stdout);
+```
 <!-- After this, the program reads the input from the file ”input.txt” and writes the output to the file ”output.txt”. -->
 
 cout << fixed << setprecision(6) << endl;
@@ -23,5 +25,12 @@ Printing the correct number of decimal points with cout -->
     printf("%c\n%s\n%s\n", c, s, line);
     
     <!-- Note: After inputting the character and the string, inputting the sentence by the above mentioned statement won't work. This is because, at the end of each line, a new line character (\n) is present. So, the statement: scanf("%[^\n]%*c", s); will not work because the last statement will read a newline character from the previous line. This can be handled in a variety of ways and one of them being: scanf("\n"); before the last statement. -->
-    
-int t;  cin >> t; cin.ignore(); while(t--){ string s; getline(cin, s); }
+```
+int t;  
+cin >> t; 
+cin.ignore(); 
+while(t--){ 
+    string s; 
+    getline(cin, s);
+  }
+```
