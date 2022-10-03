@@ -18,24 +18,48 @@
 #define sz(x) 		(int)x.size()
 #define debug(x) 	cerr << #x << " = " << (x) <<endl
 #define Fast_io    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
- 
+
 const ld PI = acos((ld)-1);
 const int MOD = 1e9+7;
 const ll INF = 1e18; 
 using namespace std;
- 
+
+vector <int> a, b;
+vector <int>::iterator it;
+int f = b.size();
+bool *flag = (bool*) malloc(sizeof(bool) * f);
+
+int BS(int data, int k){
+    auto a = lower_bound(b.begin(), b.end(), data);
+    //auto a = lower_bound(b.begin(), b.end(), data+k);
+    auto c = upper_bound(b.begin(), b.end(), data-k);
+    if(flag[*a] == 0 and a != b.end() or flag[*c] == 0 and c != b.end()){
+        flag[*a] = 1;
+        return 1;
+    } else return 0;
+}
+
 int main(){
     Fast_io;
-    ll n, i = 1, sum = 0, temp;   cin >> n;
-    bool flag = true;
- 
-    while(flag){
-        temp = n / pow(5,i);
-        if(temp == 0) flag = false;
-        sum += temp;
-        i++;
-    }
+    int n, m, k, in, cnt = 0;
+    cin >> n >> m >> k;
     
-    cout << sum << endl;
+    for(int i = 0; i < n; i++){
+        cin >> in;
+        a.push_back(in);
+    }
+    for(int i = 0; i < m; i++){
+        cin >> in;
+        b.push_back(in);
+    }
+
+    sort(b.begin(), b.end());
+    
+    for(it = a.begin(); it != a.end(); it++){
+        cnt += BS(*it, k);
+    }
+
+    cout << cnt << endl;
+
     return 0;
 }

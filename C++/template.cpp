@@ -26,6 +26,6 @@ using namespace std;
 
 int main(){
     Fast_io;
-    cout<<gcd(5,10);
+    
     return 0;
 }
