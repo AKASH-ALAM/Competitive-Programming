@@ -7,6 +7,8 @@ int main(){
 
     s.insert("Akash");
     s.insert("Sajib");
+    s.insert("Sajib");
+    s.insert("Sajib");
     s.insert("Salman");
 
     pair< set <string>::iterator, bool> p;
