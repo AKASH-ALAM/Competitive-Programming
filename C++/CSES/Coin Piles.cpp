@@ -23,14 +23,21 @@ const ll INF = 1e18;
 using namespace std;
 int main(){
     Fast_io;
-    int n, m;
-    cin >> n;
-    m = pow(2,n);
-    int arry[n][m];
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            if(k = 0)
+    int n, a, b;  cin >> n;
+    while(n--){
+        cin >> a >> b;
+        while(a and b){
+            if(a > b){
+                a = a - 2;
+                b--;
+            } else{
+                b = b - 2;
+                a--;
+            }
         }
+        if(a or b) cout << "NO" << endl;
+        else cout << "YES" << endl;
     }
+
     return 0;
 }

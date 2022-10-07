@@ -23,14 +23,16 @@ const ll INF = 1e18;
 using namespace std;
 int main(){
     Fast_io;
-    int n, m;
-    cin >> n;
-    m = pow(2,n);
-    int arry[n][m];
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            if(k = 0)
+    string s;
+    cin >> s;
+    bool flag = false;
+    for(int  i = 0; s[i] != '\0'; i++){
+        if(s[i] == s[i+1]){
+            flag = true;
+            break;
         }
-    }
+    } 
+    if(flag) cout << "Bad" << endl;
+    else cout << "Good" << endl;
     return 0;
 }

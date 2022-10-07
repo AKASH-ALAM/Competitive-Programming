@@ -23,14 +23,42 @@ const ll INF = 1e18;
 using namespace std;
 int main(){
     Fast_io;
-    int n, m;
-    cin >> n;
-    m = pow(2,n);
-    int arry[n][m];
+    int n, m;  cin >> n;
+    vector <int> v;
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            if(k = 0)
+        cin >> m;
+        v.push_back(m);
+    } 
+    int j = 0, k = 0;
+    bool one = true, two = true, flag = false;
+    for(int i = 0; i < n-1; i++) {
+        if(v[i] > v[i+1] and one) {
+            j = i;
+            one = false;
+        }
+        else if(v[i] > v[i+1] and two) {
+            k = i+1;
+            two = false;
         }
     }
+
+    if(one == false and two == false) swap(v[j], v[k]);
+
+    /* for(int i = 0; i < n; i++){
+        cout << v[i] << " ";
+    }cout << endl; */
+
+    for(int i = 0; i < n-1; i++){
+        if(v[i] > v[i+1]) {
+            flag = true;
+            break;
+        }
+        else if((v[i+1] - v[i]) > 1){
+            flag = true;
+            break;
+        }
+    }
+    if(flag) cout << "NO" << endl;
+    else cout << "YES" << endl;
     return 0;
 }

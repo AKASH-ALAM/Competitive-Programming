@@ -21,16 +21,25 @@ const ld PI = acos((ld)-1);
 const int MOD = 1e9+7;
 const ll INF = 1e18;
 using namespace std;
+
 int main(){
     Fast_io;
-    int n, m;
-    cin >> n;
-    m = pow(2,n);
-    int arry[n][m];
+
+    int n; cin >> n;
+    string in;
+    unordered_set <string> s;
+
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            if(k = 0)
+        cin >> in;
+        s.insert(in);
+    }
+
+    for(auto i : s){
+        if(s.count("!"+i)){
+            cout << i << endl;
+            return 0;
         }
     }
+    cout << "satisfiable" << endl;   
     return 0;
 }

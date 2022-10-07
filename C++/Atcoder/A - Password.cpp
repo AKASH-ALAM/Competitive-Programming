@@ -23,14 +23,8 @@ const ll INF = 1e18;
 using namespace std;
 int main(){
     Fast_io;
-    int n, m;
-    cin >> n;
-    m = pow(2,n);
-    int arry[n][m];
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            if(k = 0)
-        }
-    }
+     int n; cin >> n;
+     cout << pow(n, 3) << endl;
+
     return 0;
 }

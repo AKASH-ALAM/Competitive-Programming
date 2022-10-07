@@ -23,14 +23,27 @@ const ll INF = 1e18;
 using namespace std;
 int main(){
     Fast_io;
-    int n, m;
-    cin >> n;
-    m = pow(2,n);
-    int arry[n][m];
+    int n, a, b;
+    cin >> n >> a >> b;
+    int A = 0, B = 0;
+    vector <char> v;
+
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            if(k = 0)
+        if(a > A){
+            v.push_back('b');
+            A++;
+            if(A == a) B = 0;
+        }
+        else if(b > B) {
+            v.push_back('r');
+            B++;
+            if(B == b) A = 0;
         }
     }
+    int cnt = 0;
+    for(auto i : v) {
+        if(i == 'b') cnt++;
+    }
+    cout<< cnt << endl;;
     return 0;
 }
