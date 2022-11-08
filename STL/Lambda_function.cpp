@@ -29,7 +29,7 @@ void solve() {
 	}
 
 
-	sort(v.begin(), v.end(), [](ob a, ob b) { //Lambda function or inline coparator function
+	sort(v.begin(), v.end(), [](ob a, ob b) { //Lambda function or inline comparator function
 		return (a.y > b.y) or (a.y == b.y and a.m > b.m) or (a.m == b.m and a.d > b.d);
 	});
 
