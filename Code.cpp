@@ -45,26 +45,23 @@ const int MX = 2e5;
 #define debug(...)
 #endif
 
-struct ob {
-	string s;
-	int d, m, y;
-};
-
 void solve() {
-	vector <ob> v;
-	int n, d, m, y;	cin >> n;
 	string s;
-	for (int i = 0; i < n; i++) {
-		cin >> s >> d >> m >> y;
-		v.push_back({s, d, m, y});
+	set <string> st;
+	while (getline(cin, s)) {
+		for (int i = 0; i < sz(s); i++) {
+			if (!isalpha(s[i])) s[i] = ' ';
+			else s[i] = tolower(s[i]);
+		}
+		stringstream ss(s);
+		string out;
+		while (ss >> out) st.insert(out);
 	}
-	sort(v.begin(), v.end(), [](ob a, ob b) {
-		return (a.y > b.y) or (a.y == b.y and a.m > b.m) or (a.m == b.m and a.d > b.d);
-	});
 
-	//for (auto i : v) cout << i.s << " " << i.d << " " << i.m << " " << i.y << endl;
-	cout << v[0].s << endl << v[n - 1].s << endl;
+	for (auto i : st) cout << i << endl;
+
 }
+
 int main() {
 
 #ifdef LOCAL

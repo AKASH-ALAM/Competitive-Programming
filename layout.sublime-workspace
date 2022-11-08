@@ -1,0 +1,670 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pu",
+				"push_back"
+			],
+			[
+				"is",
+				"binary-search"
+			],
+			[
+				"sei",
+				"sieve"
+			],
+			[
+				"dfs",
+				"dfsVisite"
+			],
+			[
+				"temp",
+				"template"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Code.cpp",
+			"redo_stack":
+			[
+				[
+					434,
+					1,
+					"insert",
+					{
+						"characters": ")"
+					},
+					"AQAAAEMFAAAAAAAAQwUAAAAAAAABAAAAKQ",
+					"AQAAAAAAAAABAAAARAUAAAAAAABEBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					431,
+					1,
+					"left_delete",
+					null,
+					"AQAAAEIFAAAAAAAAQwUAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAQgUAAAAAAABCBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					428,
+					1,
+					"insert",
+					{
+						"characters": "("
+					},
+					"AQAAADcFAAAAAAAANwUAAAAAAAABAAAAKA",
+					"AQAAAAAAAAABAAAAOAUAAAAAAAA4BQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					426,
+					1,
+					"insert",
+					{
+						"characters": "r"
+					},
+					"AQAAADYFAAAAAAAANgUAAAAAAAABAAAAcg",
+					"AQAAAAAAAAABAAAANwUAAAAAAAA3BQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					424,
+					1,
+					"insert",
+					{
+						"characters": "i"
+					},
+					"AQAAADUFAAAAAAAANQUAAAAAAAABAAAAaQ",
+					"AQAAAAAAAAABAAAANgUAAAAAAAA2BQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					422,
+					1,
+					"insert",
+					{
+						"characters": "a"
+					},
+					"AQAAADQFAAAAAAAANAUAAAAAAAABAAAAYQ",
+					"AQAAAAAAAAABAAAANQUAAAAAAAA1BQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					420,
+					1,
+					"insert",
+					{
+						"characters": "p"
+					},
+					"AQAAADMFAAAAAAAAMwUAAAAAAAABAAAAcA",
+					"AQAAAAAAAAABAAAANAUAAAAAAAA0BQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					418,
+					1,
+					"insert",
+					{
+						"characters": "_"
+					},
+					"AQAAADIFAAAAAAAAMgUAAAAAAAABAAAAXw",
+					"AQAAAAAAAAABAAAAMwUAAAAAAAAzBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					416,
+					1,
+					"insert",
+					{
+						"characters": "e"
+					},
+					"AQAAADEFAAAAAAAAMQUAAAAAAAABAAAAZQ",
+					"AQAAAAAAAAABAAAAMgUAAAAAAAAyBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					414,
+					1,
+					"insert",
+					{
+						"characters": "k"
+					},
+					"AQAAADAFAAAAAAAAMAUAAAAAAAABAAAAaw",
+					"AQAAAAAAAAABAAAAMQUAAAAAAAAxBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					412,
+					1,
+					"insert",
+					{
+						"characters": "a"
+					},
+					"AQAAAC8FAAAAAAAALwUAAAAAAAABAAAAYQ",
+					"AQAAAAAAAAABAAAAMAUAAAAAAAAwBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					410,
+					1,
+					"insert",
+					{
+						"characters": "m"
+					},
+					"AQAAAC4FAAAAAAAALgUAAAAAAAABAAAAbQ",
+					"AQAAAAAAAAABAAAALwUAAAAAAAAvBQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					408,
+					1,
+					"left_delete",
+					null,
+					"AQAAAC4FAAAAAAAALwUAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAALgUAAAAAAAAuBQAAAAAAAAAAAAAAAPC/"
+				]
+			],
+			"settings":
+			{
+				"buffer_size": 1923,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "debug.h",
+			"settings":
+			{
+				"buffer_size": 410,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+				[
+					7,
+					1,
+					"paste",
+					null,
+					"AQAAAAAAAAAAAAAAmgEAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "in.txt",
+			"settings":
+			{
+				"buffer_size": 0,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "out.txt",
+			"settings":
+			{
+				"buffer_size": 0,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/User/CPP20.sublime-build",
+					""
+				],
+				[
+					"Packages/User/CPP20.sublime-build",
+					"Run For Debug"
+				]
+			],
+			[
+				"Packages/User/CPP20.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pu",
+				"Git: Push"
+			],
+			[
+				"puhs",
+				"Git: Push"
+			],
+			[
+				"co",
+				"Git: Commit"
+			],
+			[
+				"ad",
+				"Git: Add All"
+			],
+			[
+				"pus",
+				"Git: Push"
+			],
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"c",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add All"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"git:pu",
+				"Git: Push"
+			],
+			[
+				"git:co",
+				"Git: Commit"
+			],
+			[
+				"git:a",
+				"Git: Add All"
+			],
+			[
+				"git:push",
+				"Git: Push"
+			],
+			[
+				"git:c",
+				"Git: Commit"
+			],
+			[
+				"git:al",
+				"Git: Add All"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"git:com",
+				"Git: Commit"
+			],
+			[
+				"git: al",
+				"Git: Add All"
+			],
+			[
+				"git:",
+				"Git: Commit"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/mizbah/Documents/Competitive-Programming"
+	],
+	"file_history":
+	[
+		"/home/mizbah/Documents/Competitive-Programming/STL/rope.cpp",
+		"/home/mizbah/Documents/Competitive-Programming/STL/in.txt",
+		"/home/mizbah/Documents/Competitive-Programming/in.txt",
+		"/home/mizbah/Documents/Competitive-Programming/STL/greater_int.cpp",
+		"/home/mizbah/Documents/Competitive-Programming/STL/Lambda_function.cpp",
+		"/home/mizbah/Documents/Competitive-Programming/STL/comparator.cpp",
+		"/home/mizbah/Documents/Competitive-Programming/Code.cpp",
+		"/home/mizbah/Documents/Competitive-Programming/out.txt",
+		"/home/mizbah/.config/sublime-text/Packages/User/Preferences.sublime-settings",
+		"/home/mizbah/.config/sublime-text/Packages/Default/Preferences.sublime-settings",
+		"/home/mizbah/Documents/Competitive-Programming/debug.h",
+		"/home/mizbah/Documents/Start/test.cpp"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Code.cpp",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1923,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1253,
+								1253
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "debug.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								410,
+								410
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "in.txt",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "out.txt",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 42.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				2
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.801605652308,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.5,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.astyle_error_message":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 97.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 89.0
+	},
+	"pinned_build_system": "",
+	"project": "layout.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"last_automatic_layout":
+		[
+			[
+				0,
+				0,
+				1,
+				2
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		]
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 244.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 2
+	}
+}
