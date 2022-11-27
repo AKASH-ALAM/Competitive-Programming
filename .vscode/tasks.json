@@ -5,14 +5,14 @@
             "label": "debug",
             "type": "shell",
             "command": "",
-            "args": ["g++","-g", "${relativeFile}", "-o","a.exe"]
+            "args": ["g++", "-std=gnu++20","-g", "-Wall", "${relativeFile}", "-o","a.exe"]
         },
         {
-            "label": "Compile and run",
+            "label": "Compile And Run",
             "type": "shell",
             "command": "",
             "args": [
-                "g++","-g", "${relativeFile}", "-o","${fileBasenameNoExtension}.out", "&&", "clear" , "&&" , "./${fileBasenameNoExtension}.out"
+                "g++", "-std=gnu++20","-DLOCAL", "-Wall","-Wshadow","${relativeFile}", "-o","${fileBasenameNoExtension}.out", "&&", "clear" , "&&" , "./${fileBasenameNoExtension}.out"
             ],
             "group": {
                 "kind": "build",

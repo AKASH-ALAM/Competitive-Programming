@@ -1,19 +1,15 @@
-/**
- *  Author  : Pnictogen
- *  Task    :
- *  Algo    :
-**/
+
+/*Author   : Pnictogen
+*  Task    :
+*  Algo    :
+*/
+
 #include <bits/stdc++.h>
 
 #define endl          '\n'
 #define sqr(x)        (x) * (x)
 #define gcd(x,y)      __gcd(x,y)
 #define lcm(x,y)      ((x/gcd(x,y)) * y)
-#define pb            push_back
-#define pf            push_front
-#define mp            make_pair
-#define fi            first
-#define se            second
 #define sz(x)         (int)x.size()
 #define all(x)        (x).begin(),(x).end()
 #define rall(x)       (x).rbegin(),(x).rend()
@@ -25,13 +21,10 @@
 #define unsyncIO      ios_base::sync_with_stdio(false); cin.tie(nullptr)
 
 using namespace std;
-
 using ll = long long;
 using db = double;
 using ld = long double;
 using ull = unsigned long long;
-using pii = pair<int, int>;
-using pll = pair<ll, ll>;
 
 const ld PI = acos((ld) - 1);
 const int MOD = 1e9 + 7;
@@ -45,21 +38,29 @@ const int MX = 2e5;
 #define debug(...)
 #endif
 
+const int N = 1e6;
+
+ll a[N], b[N], n, m, k;
+
 void solve() {
-	string s;
-	set <string> st;
-	while (getline(cin, s)) {
-		for (int i = 0; i < sz(s); i++) {
-			if (!isalpha(s[i])) s[i] = ' ';
-			else s[i] = tolower(s[i]);
+	cin >> n >> m >> k;
+	for (int i = 0; i < n; i++) cin >> a[i];
+	for (int i = 0; i < m; i++) cin >> b[i];
+
+	sort(b, b + m);
+	sort(a, a + n);
+
+	int cnt = 0;
+	for (int i = 0; i < n; i++) {
+		auto it = lower_bound(b, b + m, a[i] - k);
+		if (*it <= a[i] + k and * it != 0) {
+			debug(*it, a[i] + k);
+			cnt++;
+			b[(it - b)] = -1;
 		}
-		stringstream ss(s);
-		string out;
-		while (ss >> out) st.insert(out);
 	}
 
-	for (auto i : st) cout << i << endl;
-
+	cout << cnt << endl;
 }
 
 int main() {

@@ -1,9 +1,8 @@
-
-/*Author   : Pnictogen
-*  Task    :
-*  Algo    :
-*/
-
+/**
+ *  Author  : Pnictogen
+ *  Task    :
+ *  Algo    :
+**/
 #include <bits/stdc++.h>
 
 #define endl          '\n'
@@ -38,48 +37,53 @@ const int MX = 2e5;
 #define debug(...)
 #endif
 
-const int N = 1e6;
-
-ll a[N], b[N], n, m, k;
+ll containerSize(const vector <ll>& v, m, mid) {
+	ll cnt = 0, deap = 0;
+	for (int i = 0; i < sz(v); i++) {
+		if (deap <= mid) deap += v[i];
+		if (deap > mid) {
+			deap = 0;
+			cnt++;
+			i--;
+		}
+	}
+	if (cnt < m) cnt = 1;
+	else cnt = 0;
+	return cnt;
+}
 
 void solve() {
-    cin >> n >> m >> k;
-    for (int i = 0; i < n; i++) cin >> a[i];
-    for (int i = 0; i < m; i++) cin >> b[i];
+	ll n, m;	cin >> n >> m;
+	vector <ll> v(n);
+	for (int i = 0; i < n; i++) cin >> v[i];
+	ll low = 1, high = 10, mid, ans;
 
-    sort(b, b + m);
-    sort(a, a + n);
-
-    int cnt = 0;
-    for (int i = 0; i < n; i++) {
-        auto it = lower_bound(b, b + m, a[i] - k);
-        if (*it <= a[i] + k and * it != 0) {
-            debug(*it, a[i] + k);
-            cnt++;
-            b[(it - b)] = -1;
-        }
-    }
-
-    cout << cnt << endl;
+	while (low <= high) {
+		mid = low + ((high - low) / 2);
+		ans = containerSize(v, m, mid);
+		if (ans) high = mid - 1;
+		else low = mid + 1;
+	}
+	cout << mid << endl;
 }
 
 int main() {
 
 #ifdef LOCAL
-    clock_t tStart = clock();
-    freopen("in.txt", "r", stdin);
-    freopen("out.txt", "w", stdout);
+	clock_t tStart = clock();
+	freopen("in.txt", "r", stdin);
+	freopen("out.txt", "w", stdout);
 #endif
-    unsyncIO;
+	unsyncIO;
 
-    int t = 1;  //cin >> t;
+	int t = 1;	cin >> t;
 
-    while (t--) {
-        solve();
-    }
+	while (t--) {
+		solve();
+	}
 
 #ifdef LOCAL
-    cerr << "\nRuntime: " << (ld) (clock() - tStart) / CLOCKS_PER_SEC << " Seconds" << endl;
+	cerr << "\nRuntime: " << (ld) (clock() - tStart) / CLOCKS_PER_SEC << " Seconds" << endl;
 #endif
-    return 0;
+	return 0;
 }

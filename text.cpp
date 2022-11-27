@@ -1,9 +1,8 @@
-
-/*Author   : Pnictogen
-*  Task    :
-*  Algo    :
-*/
-
+/**
+ *  Author  : Pnictogen
+ *  Task    :
+ *  Algo    :
+**/
 #include <bits/stdc++.h>
 
 #define endl          '\n'
@@ -38,48 +37,32 @@ const int MX = 2e5;
 #define debug(...)
 #endif
 
-const int N = 1e6;
-
-ll a[N], b[N], n, m, k;
-
 void solve() {
-    cin >> n >> m >> k;
-    for (int i = 0; i < n; i++) cin >> a[i];
-    for (int i = 0; i < m; i++) cin >> b[i];
+	int a = -3, b = 2;
 
-    sort(b, b + m);
-    sort(a, a + n);
+	b += -a;
 
-    int cnt = 0;
-    for (int i = 0; i < n; i++) {
-        auto it = lower_bound(b, b + m, a[i] - k);
-        if (*it <= a[i] + k and * it != 0) {
-            debug(*it, a[i] + k);
-            cnt++;
-            b[(it - b)] = -1;
-        }
-    }
+	cout << b << endl;
 
-    cout << cnt << endl;
 }
 
 int main() {
 
 #ifdef LOCAL
-    clock_t tStart = clock();
-    freopen("in.txt", "r", stdin);
-    freopen("out.txt", "w", stdout);
+	clock_t tStart = clock();
+	freopen("in.txt", "r", stdin);
+	freopen("out.txt", "w", stdout);
 #endif
-    unsyncIO;
+	unsyncIO;
 
-    int t = 1;  //cin >> t;
+	int t = 1;	//cin >> t;
 
-    while (t--) {
-        solve();
-    }
+	while (t--) {
+		solve();
+	}
 
 #ifdef LOCAL
-    cerr << "\nRuntime: " << (ld) (clock() - tStart) / CLOCKS_PER_SEC << " Seconds" << endl;
+	cerr << "\nRuntime: " << (ld) (clock() - tStart) / CLOCKS_PER_SEC << " Seconds" << endl;
 #endif
-    return 0;
+	return 0;
 }
