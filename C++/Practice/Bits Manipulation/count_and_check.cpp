@@ -14,6 +14,10 @@ bool check(int value, int index) {
 	return (value & (1 << index));
 } // check which bit set or not.
 
+int Flip(int value, int index) {
+	return (value ^ (1 << index)); // 0 to 1 and 1 to 0 (toggle)
+}
+
 void solve() {
 	// 1010 (it's a binary of 10)
 	// 0100 (make left shift 2 times of 1)
