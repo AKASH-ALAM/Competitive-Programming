@@ -1,9 +1,8 @@
-
-/*Author   : Pnictogen
-*  Task    :
-*  Algo    :
-*/
-
+/**
+ *  Author  : Pnictogen
+ *  Task    :
+ *  Algo    :
+**/
 #include <bits/stdc++.h>
 
 #define endl          '\n'
@@ -38,29 +37,35 @@ const int MX = 2e5;
 #define debug(...)
 #endif
 
-const int N = 1e6;
+int Set(int x, int index) {
+	return (x | (1 << index)); // set the index bit
+}
 
-ll a[N], b[N], n, m, k;
+bool check(int value, int index) {
+	return (value & (1 << index));
+} // check which bit set or not.
 
 void solve() {
-	cin >> n >> m >> k;
-	for (int i = 0; i < n; i++) cin >> a[i];
-	for (int i = 0; i < m; i++) cin >> b[i];
+	// 1010 (it's a binary of 10)
+	// 0100 (make left shift 2 times of 1)
+// = -------
+	// 1110 (after set bit no - 2, the value become : 14)
 
-	sort(b, b + m);
-	sort(a, a + n);
+	int value = Set(10, 2);
+	cout << value << endl;
+
+	cout << "1 : means set\n0: means not set : ";
+	cout << check(value, 3);
+	cout << check(value, 2);
+	cout << check(value, 1);
+	cout << check(value, 0) << endl;
 
 	int cnt = 0;
-	for (int i = 0; i < n; i++) {
-		auto it = lower_bound(b, b + m, a[i] - k);
-		if (*it <= a[i] + k and * it != 0) {
-			debug(*it, a[i] + k);
-			cnt++;
-			b[(it - b)] = -1;
-		}
+	value = 100;
+	for (int i = 0; i < 30; i++) {
+		cnt += check(value, i);
 	}
-
-	cout << cnt << endl;
+	cout << value << " : have set " << cnt << " : bit" << endl;
 }
 
 int main() {
