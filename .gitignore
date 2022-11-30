@@ -1,7 +1,9 @@
 *.out
 *.cph
 *.txt
+*.sublime-project
 Debugging.out
 Code.cpp
 test.cpp
 debug.h
+Code
