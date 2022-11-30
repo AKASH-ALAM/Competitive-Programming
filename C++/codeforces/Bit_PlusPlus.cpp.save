@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+
+/;]\using namespace std;
+int main(){
+    int t,i, plus = 0,minuse = 0,result;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        for(i = 0; i < s.length(); i++){
+            if(s[i] == '+'){
+                plus++;
+                break;
+            }
+            else if(s[i] == '-'){
+                minuse++;
+                break;
+            }
+        }
+    }
+    cout<<plus-minuse<<endl;
+    return 0;
+}

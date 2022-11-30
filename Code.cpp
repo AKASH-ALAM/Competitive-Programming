@@ -37,16 +37,35 @@ const int MX = 2e5;
 #define debug(...)
 #endif
 
-bool count(int n, int i) {
-	return (n & (1 << i));
+int Set(int x, int index) {
+	return (x | (1 << index)); // set the index bit
 }
 
+bool check(int value, int index) {
+	return (value & (1 << index));
+} // check which bit set or not.
+
 void solve() {
-	int n, cnt = 0;	cin >> n;
-	for (int i = 0; i < 4; i++) {
-		cnt += count(n, i);
+	// 1010 (it's a binary of 10)
+	// 0100 (make left shift 2 times of 1)
+// = -------
+	// 1110 (after set bit no - 2, the value become : 14)
+
+	int value = Set(10, 2);
+	cout << value << endl;
+
+	cout << "1 : means set\n0: means not set : ";
+	cout << check(value, 3);
+	cout << check(value, 2);
+	cout << check(value, 1);
+	cout << check(value, 0) << endl;
+
+	int cnt = 0;
+	value = 100;
+	for (int i = 0; i < 30; i++) {
+		cnt += check(value, i);
 	}
-	cout << cnt << endl;
+	cout << value << " : have set " << cnt << " : bit" << endl;
 }
 
 int main() {
@@ -58,7 +77,7 @@ int main() {
 #endif
 	unsyncIO;
 
-	int t = 1;	cin >> t;
+	int t = 1;	//cin >> t;
 
 	while (t--) {
 		solve();
