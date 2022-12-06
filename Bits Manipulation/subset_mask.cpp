@@ -29,13 +29,13 @@ int main() {
     int s_mask = 22;
     int limit = 1 << 5;
 
-    for (int mask = 1; mask < limit; mask++) {
-        if (subset_mask(s_mask, mask)) {
-            for (int i = 0; i < a.size(); i++) {
+    for (int mask = 1; mask < limit; mask++) { // O(2^N)
+        if (subset_mask(s_mask, mask)) { // O(11)
+            for (int i = 0; i < a.size(); i++) { // O(N)
                 if (check(mask, i)) cout << a[i] << " ";
             } cout << endl;
         }
-    }
+    } // so overall time complexity : O(N * 2^N)
 
     return 0;
 }
