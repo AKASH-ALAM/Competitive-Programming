@@ -3,7 +3,7 @@ const int mx = 32000; // is sqrt of : 1e9
 bitset <mx> isPrime;
 vector <int> prime;
 
-void seive() {
+void sieve() {
 	isPrime.set();
 	prime.push_back(2);
 	for (int i = 3; i <= mx; i += 2) {
