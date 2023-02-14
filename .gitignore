@@ -2,7 +2,6 @@
 *.cph
 *.txt
 *.sublime-project
-*.sublime-workspace
 Debugging.out
 Code.cpp
 test.cpp
