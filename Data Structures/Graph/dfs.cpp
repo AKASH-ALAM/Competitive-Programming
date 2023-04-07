@@ -1,68 +1,28 @@
-/**
- *    Author:  AKASH-ALAM       
-**/
-#include <bits/stdc++.h>
-#define endl        '\n'
-#define db          double
-#define ld          long double
-#define ll          long long
-#define ull         unsigned long long
-#define sqr(x)      (x) * (x)
-#define gcd(a, b)   __gcd(a, b)
-#define lcm(a, b)   ((a/gcd(a,b)) * b)
-#define pf(x) 		push_front(x)
-#define pb(x)       push_back(x)
-#define eb(x)		emplace_back(x)
-#define all(x)      (x).begin(), (x).end()
-#define rall(x) 	(x).rbegin(), (x).rend()
-#define sz(x) 		(int)x.size()
-#define debug(x) 	cerr << #x << " = " << (x) <<endl
-#define Fast_io    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
 
-const ld PI = acos((ld)-1);
-const int MOD = 1e9+7;
-const ll INF = 1e18; 
-#define WHITE 1
-#define GRAY 2
-#define BLACK 3
-
-using namespace std;
-
-int adj[100][100];
-int color[100];
-int node, edge;
-
-void dfsVisite(int x){
-    color[x] = GRAY;
-    for(int i = 0; i < node; i++){
-        if(adj[x][i] == 1){
-            if(color[i] == WHITE){
-                dfsVisite(i);
-            }
-        }
-    }
-    color[x] = BLACK;
-}
-void dfs(){
-    for(int i = 0; i < node; i++){
-        color[i] = WHITE;
-    }
-    for(int i = 0; i < node; i++){
-        if(color[i] == WHITE){
-            dfsVisite(i);
-        }
+void dfs(int node, vector <int> *adj, vector <int> &ls, bool *visited) { // O(V + E)
+    visited[node] = 1;
+    ls.push_back(node);
+    //traversal all it's neighbours
+    for (auto it : adj[node]) {
+        if (!visited[it]) dfs(it, adj, ls, visited);
     }
 }
-int main(){
-    Fast_io;
-    freopen("input.txt", "r", stdin);
-    cin >> node >> edge;
-    int n1, n2;
-    for(int i = 0; i < edge; i++){
-        cin >> n1 >> n2;
-        adj[n1][n2] = 1;
-        adj[n2][n1] = 1;
+
+void solve() {
+    int vertex, edge;   cin >> vertex >> edge;
+    vector <int> adj_list[vertex];
+    vector <int> ls;
+    bool visited[vertex] = {0};
+
+    int a, b;
+    for (int i = 0; i < edge; i++) {
+        cin >> a >> b;
+        adj_list[a].push_back(b);
+        adj_list[b].push_back(a);
     }
-    dfs();
-    return 0;
+
+    int start = 0;
+    dfs(start, adj_list, ls, visited);
+    for (auto it : ls) cout << it << " ";
+    cout << endl;
 }
