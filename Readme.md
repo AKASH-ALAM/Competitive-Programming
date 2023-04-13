@@ -15,19 +15,43 @@ ll BigMod(ll a, ll b, ll m) {
 ```
 
 ```
-ll ModInverse(ll number, ll mod){return BigMod(number, mod-2, mod);}
+ll ModInverse(ll number, ll mod){
+	return BigMod(number, mod-2, mod);
+}
 ```
 
 ```
-ll Mulmod(ll base, ll power, ll mod){if(power==0) return 0; if(power==1) return base%mod; ll x = Mulmod(base,power/2,mod); x = (x+x)%mod; if(power%2){x = (x+(base%mod))%mod;}return x;}
+ll Mulmod(ll base, ll power, ll mod){
+	if(power == 0) return 0; 
+	if(power == 1) return base % mod; 
+	ll x = Mulmod(base, power / 2,mod); 
+	x = (x+x) % mod; 
+	if(power % 2) x = (x + (base % mod)) % mod;
+	return x;
+}
 ```
 
 ```
-ll BigMulmod(ll base, ll power, ll mod){if(power==0) return 1%mod; if(power==1) return base%mod; ll x = BigMulmod(base,power/2,mod); x = Mulmod(x,x,mod); if(power%2){x = Mulmod(x,(base%mod),mod);}return x;}
+ll BigMulmod(ll base, ll power, ll mod){
+	if(power==0) return 1%mod; 
+	if(power==1) return base%mod; 
+	ll x = BigMulmod(base,power/2,mod); 
+	x = Mulmod(x,x,mod); 
+	if(power%2) x = Mulmod(x,(base%mod),mod);
+	return x;
+}
 ```
 
 ```
-bool isPrime(ll n){if (n < 2) return false;else if (n == 2) return true; else if (n % 2 == 0) return false;for (ll i = 3; i*i <= n; i += 2){if (n % i == 0)return false;}return true;}
+bool isPrime(ll n){
+	if (n < 2) return false;
+	else if (n == 2) return true; 
+	else if (n % 2 == 0) return false;
+	for (ll i = 3; i*i <= n; i += 2){
+		if (n % i == 0) return false;
+	}
+	return true;
+}
 ```
 
 ###### Operation with string and char
@@ -79,33 +103,40 @@ bool lessThan(double a, double b) {
 
 ```
 bool greaterThan (double a, double b) {
-	if (a > b + EPS) return true; else return false;
+	if (a > b + EPS) return true; 
+	else return false;
 }
 ```
 
 ```
 bool lessThanOrEqual (double a, double b) {
-	if (equal(a, b) or (lessThan(a, b))) return true; else return false;
+	if (equal(a, b) or (lessThan(a, b))) return true;
+	else return false;
 }
+```
 
 ```
 bool greaterThanOrEqual(double a, double b) {
-	if (equal(a, b) or greaterThan(a, b)) return true; else return false;
+	if (equal(a, b) or greaterThan(a, b)) return true; 
+	else return false;
 }
 
 ```
 
 ###### Sort by descending order
+
 ```
 sort(arr, arr+n, greater<int>());
 sort(s2.begin(), s2.end(), greater<char>());
-
 ```
+
 ###### File operation
+
 ```
 freopen("input.txt", "r", stdin);
 freopen("output.txt", "w", stdout);
 ```
+
 After this, the program reads the input from the file ”input.txt” and writes the output to the file ”output.txt”.
 
 ###### Precision
@@ -116,6 +147,7 @@ With `<iomanip>` you can use `std::fixed` and `std::setprecision`
 Printing the correct number of decimal points with cout.
 
 ###### Char or String input
+
 ```
 char c, s[100], line[1000];
 scanf("%c", &c);
@@ -134,6 +166,7 @@ in order to take a line as input, you can use `scanf("%[^\n]%*c", s)` where  is 
  `printf("%c\n%s\n%s\n", c, s, line);`
     
 Note: After inputting the character and the string, inputting the sentence by the above mentioned statement won't work. This is because, at the end of each line, a new line character (\n) is present. So, the statement: `scanf("%[^\n]%*c", s)` will not work because the last statement will read a newline character from the previous line. This can be handled in a variety of ways and one of them being: `scanf("\n")` before the last statement or ignore it just use `cin.ignore()`
+
     
 ```
 int t;  
@@ -142,5 +175,5 @@ cin.ignore();
 while(t--){ 
     string s; 
     getline(cin, s);
-  }
+ }
 ```
