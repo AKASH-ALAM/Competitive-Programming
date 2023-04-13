@@ -2,7 +2,16 @@ template<typename T>inline T POW(T B,T P){ if(P==0) return 1; if(P&1) return B*P
 
 ###### MOD
 ```
-ll BigMod(ll a, ll b, ll m) { a %= m; ll res = 1;while (b > 0) {if (b & 1)res = res * a % m;a = a * a % m;b >>= 1;}return res;}
+ll BigMod(ll a, ll b, ll m) {
+	a %= m; 
+	ll res = 1;
+	while (b > 0) {
+		if (b & 1) res = res * a % m;
+		a = a * a % m;
+		b >>= 1;
+	} 
+	return res;
+}
 ```
 
 ```
@@ -48,7 +57,7 @@ vec.resize(unique(all(vec)) - vec.begin());
 vec.erase(unique(all(vec)), vec.end());
 ```
 
-###### Couble Compare
+###### Double Compare
 ```
 bool equal(double a, double b) {
 	if (fabs(a - b) <= EPS ) return true; else return false;
