@@ -1,5 +1,5 @@
  <snippet>
-	<content><![CDATA[
+    <content><![CDATA[
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -13,7 +13,6 @@ using ull = unsigned long long;
 #define endl          '\n'
 #define sqr(x)        (x) * (x)
 #define gcd(x,y)      __gcd(x,y)
-#define inf           0x3f3f3f3f
 #define sz(x)         (int)x.size()
 #define toint(a)      atoi(a.c_str())
 #define lcm(x,y)      ((x/gcd(x,y)) * y)
@@ -21,7 +20,7 @@ using ull = unsigned long long;
 #define rall(x)       (x).rbegin(),(x).rend()
 #define prec(x)       fixed<<setprecision(x)
 #define mem(a,x)      memset(a,x,sizeof(a))
-#define testcase      cout<<"Case "<<cs++<<":"
+#define testcase      cout << "Case " << cs++ << ":"
 string  tostr(int n)  {stringstream rr; rr << n; return rr.str();}
 #define unsyncIO      ios_base::sync_with_stdio(false); cin.tie(nullptr)
 typedef tree <int,    null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
@@ -65,9 +64,9 @@ int main() {
     //cin >> t;
 
     //cin.ignore();
-	while (t--) {
-		solve();
-	}
+    while (t--) {
+        solve();
+    }
 
 #ifdef LOCAL
     cerr << "\nRuntime: " << (ld) (clock() - tStart) / CLOCKS_PER_SEC << " Seconds" << endl;
@@ -75,8 +74,8 @@ int main() {
     return 0;
 }
 ]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>#include</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<scope>source.c++</scope>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>#include</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.c++</scope>
 </snippet>
