@@ -1,15 +1,13 @@
-const int MX = sqrt(1e6) + 6; // sqrt(10^9) is enough, but MX can upto 10^8
+const int MX = 1e6;
 vector<int> primes;
 bitset < MX + 5 > mark;
 
-void sieve() { //prime gen upto 10^8
-	int sq = sqrt(MX);
-	for (int i = 3; i <= sq; i += 2)
-		if (!mark[i] && (i * i) <= MX) {
+void sieve() {
+	for (int i = 3; i * i <= MX; i += 2)
+		if (!mark[i]) {
 			for (int j = i * i; j <= MX; j += (i << 1))
 				mark[j] = true;
 		}
-// 	if you need to store the primes then ->
 	primes.push_back(2);
 	for (int i = 3; i <= MX; i += 2) {
 		if (mark[i] == false)
