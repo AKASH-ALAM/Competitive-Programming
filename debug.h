@@ -1,3 +1,5 @@
+// Thanks to fsshakkhor
+
 #define debug(...) __f(#__VA_ARGS__, __VA_ARGS__)
 template < typename Arg1 >
 void __f(const char* name, Arg1&& arg1) {
