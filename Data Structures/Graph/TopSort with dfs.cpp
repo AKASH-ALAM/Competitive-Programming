@@ -1,31 +1,33 @@
-int const N = 100;
-int edge, node;
-bool vis[N];
-vector <int> g[N];
-stack <int> nodes;
-
-void top_sort(int u) {  // O(V + E)
-    vis[u] = true;
-
-    for (auto v : g[u]) {
-        if (vis[v]) continue;
-        top_sort(v);
+void dfs(int node, vector <int> &vis, stack <int> &st, vector <int> *grid) {
+    vis[node] = 1;
+    for (auto it : grid[node]) {
+        if (!vis[it]) dfs(it, vis, st, grid);
     }
-
-    nodes.push(u);
+    st.push(node);
 }
 
 void solve() {
-    cin >> edge >> node;
-    for (int i = 0; i < edge; i++) {
-        int u, v;   cin >> u >> v;
-        g[u].push_back(v);
-    }
+    int n, m;
+    while (cin >> n >> m, n or m) {
+        vector <int> grid[n + 1];
 
-    top_sort(2);
-    top_sort(1);
-    while (!nodes.empty()) {
-        cout << nodes.top() << " ";
-        nodes.pop();
+        for (int i = 1; i <= m; i++) {
+            int u, v;   cin >> u >> v;
+            grid[u].push_back(v);
+        }
+
+        vector <int> vis(n + 1, 0);
+        stack <int> st;
+        vector <int> ans;
+
+        for (int i = 1; i <= n; i++) {
+            if (!vis[i]) dfs(i, vis, st, grid);
+        }
+
+        while (!st.empty()) {
+            ans.push_back(st.top());
+            st.pop();
+        }
+        for (int i = 0; i < sz(ans); i++) cout << ans[i] << " \n"[i == sz(ans) - 1];
     }
 }
