@@ -14,6 +14,7 @@ void solve() {
 			}
 		}
 	}
+
 	vector <vector<bool>> vis(n + 1, vector <bool>(m + 1));
 	vector <vector<char>> path(n + 1, vector <char>(m + 1, '.'));
 	queue <pair<int, int>> q;
