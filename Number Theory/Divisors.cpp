@@ -1,84 +1,81 @@
-/**  Author  : Pnictogen
- **  Algo    :      **/
-
 #include <bits/stdc++.h>
-#define Fast_io ios_base::sync_with_stdio(false),cin.tie(NULL), cout.tie(NULL)
 using namespace std;
 
-#define MAX 32000
-using ll = long long;
-vector <int> prime;
-vector <bool> isPrime(MAX, true);
+const int N = 1e7 + 5;
+bitset <N> mark; // zero means prime
+vector <int> primes;
+int limit = sqrt(N);
 
-void sieve() {
-    for (int i = 3; i * i < MAX; i += 2) {
-        if (isPrime[i]) {
-            for (int j = i * i; j < MAX; j += i * 2) {
-                isPrime[j] = false;
-            }
-        }
+void sieve() { // O(N * log(log(sqrt(N))));
+    mark[0] = mark[1] = 1;
+    for (int i = 4; i < N; i += 2) mark[i] = 1;
+
+    for (int i = 3; i < limit; i += 2) {
+        if (mark[i] == 1) continue;
+        for (int j = i * i; j < N; j += i * 2) mark[j] = 1;
     }
 
-    prime.push_back(2);
-    for (int i = 3; i <= MAX; i += 2) {
-        if (isPrime[i]) prime.push_back(i);
+    primes.push_back(2);
+    for (int i = 3; i < N; i += 2) {
+        if (mark[i] == 0) primes.push_back(i);
     }
 }
 
-set <int> divisors;
-
+vector <int> divisors;
 void show_divisor(int n) {
     for (int i = 1; i * i <= n; i++) {
         if (n % i == 0) {
-            divisors.insert(i);
-            divisors.insert(n / i);
+            divisors.push_back(i);
+            if (i * i != n) divisors.push_back(n / i);
         }
     }
-
-    cout << "The Divisors are : ";
-    for (auto i : divisors) {
-        cout << i << " ";
-    } cout << endl;
 }
 
 int countDivisor(int n) {
     int divisor = 1;
-    for (int i = 0; n != 1; i++) {
-        if (!(n % prime[i])) {
-            int cnt = 1;
-            while (!(n % prime[i])) {
-                n /= prime[i];
+    for (int i = 0; primes[i] * primes[i] <= n; i++) {
+        int cnt = 1;
+        if (n % primes[i] == 0) {
+            while (n % primes[i] == 0) {
                 cnt++;
+                n /= primes[i];
             }
             divisor *= cnt;
         }
     }
+    if (n > 1)
+        divisor *= 2;
     return divisor;
 }
 
 int DivisorSum(int n) {
     int total = 1;
     for (int i = 0; n != 1; i++) {
-        if (!(n % prime[i])) {
+        if (!(n % primes[i])) {
             int cnt = 1;
-            while (!(n % prime[i])) {
-                n /= prime[i];
+            while (!(n % primes[i])) {
+                n /= primes[i];
                 cnt++;
             }
-            total *= (pow(prime[i], cnt) - 1) / (prime[i] - 1);
+            total *= (pow(primes[i], cnt) - 1) / (primes[i] - 1);
         }
     }
     return total;
 }
 
-int main() {
-    Fast_io;
-    sieve();
+void solve() {
+    show_divisor(36);
+    for (auto i : divisors) cout << i << ' '; cout << endl;
+    cout << countDivisor(36) << endl;
+    cout << DivisorSum(36) << endl;
+}
 
-    int n;  cin >> n;
-    show_divisor(n);
-    cout << "Number of Divisors = " << countDivisor(n) << endl;
-    cout << "Sum of Divisors = " << DivisorSum(n) << endl;
+int main() {
+    int t = 1;
+    sieve();
+    while (t--) {
+        solve();
+    }
 
     return 0;
 }

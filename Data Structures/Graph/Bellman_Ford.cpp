@@ -1,4 +1,4 @@
-//O(ExV)
+//O(ExV)    Find the shortest distance of all the vertex's from the source vertex S
 vector <int> bellman_ford(int V, vector <vector<int>> &edges, int S) {
     vector <int> dis(V, 1e8);   dis[S] = 0;
 
