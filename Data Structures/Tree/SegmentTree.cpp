@@ -2,29 +2,23 @@ const int lim = 2e5 + 5;
 int arr[lim];
 ll segTree[4 * lim];
 
+#define left    (idx * 2)
+#define right   (idx * 2 + 1)
+#define mid     ((lo + hi) / 2)
+
 
 void build(int idx, int lo, int hi) {
     if (lo == hi) {
         segTree[idx] = arr[lo];
         return;
     }
-
-    int mid = (lo + hi) / 2;
-    int left = idx * 2, right = idx * 2 + 1;
-
-    build(left, lo, mid);
-    build(right, mid + 1, hi);
-
+    build(left, lo, mid), build(right, mid + 1, hi);
     segTree[idx] = min(segTree[left], segTree[right]);
 }
 
 ll query(int idx, int lo, int hi, int i, int j) {
     if (i > hi or j < lo) return LONG_MAX;
     else if (i <= lo and hi <= j) return segTree[idx];
-
-    int mid = (lo + hi) / 2;
-    int left = idx * 2, right = idx * 2 + 1;
-
     return min(query(left, lo, mid, i, j), query(right, mid + 1, hi, i, j));
 }
 
@@ -34,13 +28,7 @@ void update(int idx, int lo, int hi, int i, int val) {
         segTree[idx] = val;
         return;
     }
-
-    int mid = (lo + hi) / 2;
-    int left = idx * 2, right = idx * 2 + 1;
-
-    update(left, lo, mid, i, val);
-    update(right, mid + 1, hi, i, val);
-
+    update(left, lo, mid, i, val), update(right, mid + 1, hi, i, val);
     segTree[idx] = min(segTree[left], segTree[right]);
 }
 
