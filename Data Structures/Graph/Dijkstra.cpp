@@ -1,20 +1,20 @@
 //using priority queue O(E log(V))
-vector <int> dijkstra(int V, vector <vector<int>> adj[], int S) {
-	priority_queue <pair <int, int>, vector <pair<int, int>>, greater <pair<int, int>>> pq;
-	vector <int> dist(V, 1e9);
+vector <ll> dijkstra(ll V, vector<pair<ll, ll>> *adj, ll S) {
+	priority_queue <pair <ll, ll>, vector <pair<ll, ll>>, greater <pair<ll, ll>>> pq;
+	vector <ll> dist(V, 1e18);
+
 	pq.push({0, S});
 	dist[S] = 0;
 
 	while (!pq.empty()) {
-		int node = pq.top().second;
-		int dis = pq.top().first;
+		auto [dis, u] = pq.top();
 		pq.pop();
-		for (auto it : adj[node]) {
-			int Newnode = it[0];
-			int w = it[1];
-			if (dis + w < dist[Newnode]) {
-				dist[Newnode] = dis + w;
-				pq.push({dist[Newnode], Newnode});
+		if (dist[u] < dis) continue;
+		for (auto it : adj[u]) {
+			auto [v, w] = it;
+			if (dis + w < dist[v]) {
+				dist[v] = dis + w;
+				pq.push({dist[v], v});
 			}
 		}
 	}
@@ -22,28 +22,26 @@ vector <int> dijkstra(int V, vector <vector<int>> adj[], int S) {
 }
 
 //using set data structure
+// it's faster then priority queue
+vector <ll>  dijkstra(ll V, vector<pair<ll, ll>> *adj, ll S) {
+	set <pair<ll, ll>> st;
+	vector <ll> dist(V, 1e18);
 
-vector <int> dijkstra(int V, vector<vector<int>> adj[], int S) {
-	set <pair<int, int>> st;
-	vector <int> dist(V, 1e9);
 	st.insert({0, S});
 	dist[S] = 0;
 
 	while (!st.empty()) {
-		auto it = *(st.begin());
-		int node = it.second;
-		int w = it.first;
-		st.erase(it);
+		auto [w, u] = *st.begin();
+		st.erase(st.begin());
 
-		for (auto u : adj[node]) {
-			int adjNode = u[0];
-			int edgw = u[1];
+		for (auto it : adj[u]) {
+			auto [v, edgw] = it;
 
-			if (w + edgw < dist[adjNode]) {
-				if (dist[adjNode] != 1e9) st.erase({dist[adjNode], adjNode});
+			if (w + edgw < dist[v]) {
+				if (dist[v] != 1e18) st.erase({dist[v], v});
 
-				dist[adjNode] = w + edgw;
-				st.insert({dist[adjNode], adjNode});
+				dist[v] = w + edgw;
+				st.insert({dist[v], v});
 			}
 		}
 	}

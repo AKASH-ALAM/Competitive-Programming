@@ -18,7 +18,7 @@ using ull = unsigned long long;
 #define testcase      cout << "Case " << cs++ << ":"
 string  tostr(int n)  {stringstream rr; rr << n; return rr.str();}
 #define unsyncIO      ios_base::sync_with_stdio(false); cin.tie(nullptr)
-
+//stol(s);  x.to_string();
 const ld PI = acos((ld) - 1);
 const int MOD = 1e9 + 7;
 const ll INF = 2e18 + 1;
@@ -32,37 +32,33 @@ int  cs = 1;
 #define debug(...)
 #endif
 
-string c[] = {"blue", "green", "yellow", "red", "purple", "orange", "pink", "grey", "cyan", "brown", "ash", "silver", "gold", "white", "black"};
-
+bool detect(int n, vector <int> *g, int src) {
+	queue <pair<int , int>> q; // node, parent
+	vector <bool> vis(n + 1, 0);
+	q.push({src, -1});
+	vis[src] = 1;
+	while (!q.empty()) {
+		auto [node, parent] = q.front();
+		q.pop();
+		for (auto adjnode : g[node]) {
+			if (!vis[adjnode]) {
+				vis[adjnode] = 1;
+				q.push({adjnode, node});
+			} else if (parent != adjnode) return true;
+		}
+	}
+	return false;
+}
 void solve() {
-	string s;	cin >> s;
-	vector <int> fre(26, 0);
-	for (auto ch : s) {
-		fre[ch - 'a']++;
-	}
-	int ans = 0;
-	for (int mask = 0; mask < (1LL << 15); mask++) {
-		auto tmp = fre;
-		bool ok = true;
-		for (int i = 0; i < 15; i++) {
-			if (mask & (1LL << i)) {
-				for (auto x : c[i]) {
-					if (tmp[x - 'a'] >= 1) {
-						tmp[x - 'a']--;
-					}
-					else {
-						ok = false;
-						break;
-					}
-				}
-			}
-		}
-		if (ok) {
-			ans = max(ans, __builtin_popcountll(mask));
-		}
+	int n, m;  cin >> n >> m;
+	vector <int> g[n + 1];
+	for (int i = 0; i < m; i++) {
+		int u, v;   cin >> u >> v;
+		g[u].push_back(v);
 	}
 
-	cout << ans << endl;
+	if (detect(n, g, 1)) cout << "Yes" << endl;
+	else cout << "No" << endl;
 }
 
 int main() {
@@ -73,7 +69,7 @@ int main() {
 
 	unsyncIO;
 	int t = 1;
-	cin >> t;
+	//cin >> t;
 
 	//cin.ignore();
 	while (t--) {
