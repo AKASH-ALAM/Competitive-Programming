@@ -1,6 +1,6 @@
 const int N = 1e7 + 5;
 bitset <N> mark; // zero means prime
-vector <int> primes;
+vector <ll> primes;
 int limit = sqrt(N);
 
 void sieve() { // O(N * log(log(sqrt(N))));
