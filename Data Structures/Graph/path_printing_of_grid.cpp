@@ -1,7 +1,7 @@
 int dx[] = { -1, 1, 0, 0, -1, -1, 1, 1};
 int dy[] = {  0, 0, -1, 1, -1, 1, -1, 1};
 
-void solve() {
+void Path_printing_of_grid(int n, int m, vector <vector<char>> &grid, ) {
 	int n, m;	cin >> n >> m;
 	vector <vector<char>> grid(n + 1, vector <char>(m + 1));
 	int rw = 0, cl = 0;

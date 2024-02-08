@@ -5,7 +5,7 @@ using namespace __gnu_pbds;
 /*It seems that sometimes unordered_map becames so slow
 but it can improve with this two lines of code:*/
 
-unordered_map<int, int>mp;
+unordered_map <int, int>mp;
 mp.reserve(1024); //(1 << n)
 mp.max_load_factor(0.25);
 
