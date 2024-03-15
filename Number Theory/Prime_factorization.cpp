@@ -19,7 +19,7 @@ void sieve() { // O(N * log(log(sqrt(N))));
 }
 
 void prime_fact(ll n, vector <ll> &factors) {
-   for (int i = 0; primes[i]*primes[i] <= n; i++) {
+   for (int i = 0; (ll) primes[i]*primes[i] <= n; i++) {
       if (n % primes[i] == 0) {
          while (n % primes[i] == 0) {
             factors.push_back(primes[i]);
@@ -31,7 +31,7 @@ void prime_fact(ll n, vector <ll> &factors) {
 }
 
 void prime_fact(ll n, vector<pair<ll, int>> &factors) {
-   for (int i = 0; primes[i]*primes[i] <= n; i++) {
+   for (int i = 0; (ll) primes[i]*primes[i] <= n; i++) {
       if (n % primes[i] == 0) {
          int cnt = 0;
          while (n % primes[i] == 0) {
