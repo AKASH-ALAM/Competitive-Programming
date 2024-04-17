@@ -23,3 +23,13 @@ bool isbipartite(int src, int n, vector <int> *g) {
 
     return true;
 }
+
+
+bool dfs(int c, int u, vector <int> &color, vector <int> *g) {
+    color[u] = c;
+    for (auto &v : g[u]) {
+        if (color[v] == -1 and dfs(!c, v, color, g)) return true;
+        else if (color[u] == color[v]) return true;
+    }
+    return false;
+}
