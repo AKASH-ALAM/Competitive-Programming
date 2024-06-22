@@ -7,6 +7,5 @@ void solve() {
         if (idx != v.end()) v[idx - v.begin()] = in;
         else v.push_back(in);
     }
-
     cout << sz(v) << endl;
 }

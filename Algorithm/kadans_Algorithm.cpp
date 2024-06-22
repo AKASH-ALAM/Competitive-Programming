@@ -6,6 +6,7 @@ int kadans(int arry[], int n) {
     for (int i = 1; i < n; i++) {
         if (csum >= 0) csum += arry[i];
         else csum = arry[i];
+        
         if (csum > osum) osum = csum;
         cout << csum << " " << osum << endl;
     }

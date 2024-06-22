@@ -1,54 +1,82 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-using ld = long double;
-const ld PI = acos((ld) - 1);
-using ull = unsigned long long;
 
-#define endl          '\n'
-#define int          long long
-#define sz(x)         (int)x.size()
-#define mem(a,x)      memset(a,x,sizeof(a))
-#define all(x)        (x).begin(),(x).end()
-#define rall(x)       (x).rbegin(),(x).rend()
-//stol(s);sqrtl()     to_string(x);
-
-#ifdef LOCAL
-#include "debug.h"
-#else
-#define debug(...)
-#endif
-
-void solve() {
-   int n, k;   cin >> n >> k;
-   vector <int> v(n);
-   for(auto &it : v) cin >> it;
-   vector <int> dif;
-
-   if(n >= 2){
-     if(v[0] > v[1])  dif.push_back(abs(v[0]- v[1]));
-     if(v[n-1] > v[n-2]) dif.push_back(abs(v[n-1]-v[n-2]));
-   }
-
-   for(int i = 1; i < n-1; i++){
-      if(v[i] >= v[i-1] or v[i] >= v[i+1]) dif.push_back(abs(v[i] - min(v[i-1], v[i+1])));
-   }
-   sort(rall(dif));
-   int sum = 0;
-   for(auto & it : v) sum += it;
-
-   for(int i = 0; i < k and i < sz(dif); i++) sum -= dif[i];
-   cout << sum << endl;
+// Function to return precedence of operators
+int prec(char c) {
+   if (c == '^')
+      return 3;
+   else if (c == '/' || c == '*')
+      return 2;
+   else if (c == '+' || c == '-')
+      return 1;
+   else
+      return -1;
 }
 
-signed main() {
-   ios_base::sync_with_stdio(false);
-   cin.tie(nullptr);
-   int t = 1;
-   cin >> t;
-   //cin.ignore();
-   while (t--) {
-      solve();
+// Function to return associativity of operators
+char associativity(char c) {
+   if (c == '^')
+      return 'R';
+   return 'L'; // Default to left-associative
+}
+
+// The main function to convert infix expression
+// to postfix expression
+void infixToPostfix(string s) {
+   stack<char> st;
+   string result;
+
+   for (int i = 0; i < s.length(); i++) {
+      char c = s[i];
+
+      // If the scanned character is
+      // an operand, add it to the output string.
+      if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+         result += c;
+
+      // If the scanned character is an
+      // ‘(‘, push it to the stack.
+      else if (c == '(')
+         st.push('(');
+
+      // If the scanned character is an ‘)’,
+      // pop and add to the output string from the stack
+      // until an ‘(‘ is encountered.
+      else if (c == ')') {
+         while (st.top() != '(') {
+            result += st.top();
+            st.pop();
+         }
+         st.pop(); // Pop '('
+      }
+
+      // If an operator is scanned
+      else {
+         while (!st.empty() && prec(s[i]) < prec(st.top()) ||
+            !st.empty() && prec(s[i]) == prec(st.top()) &&
+            associativity(s[i]) == 'L') {
+            result += st.top();
+            st.pop();
+         }
+         st.push(c);
+      }
    }
+
+   // Pop all the remaining elements from the stack
+   while (!st.empty()) {
+      result += st.top();
+      st.pop();
+   }
+
+   cout << result << endl;
+}
+
+// Driver code
+int main() {
+   string exp = "a+b*(c^d-e)^(f+g*h)-i";
+
+   // Function call
+   infixToPostfix(exp);
+
    return 0;
 }

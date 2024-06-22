@@ -2,10 +2,9 @@ const int lim = 2e5 + 5;
 int arr[lim];
 ll segTree[4 * lim];
 
-#define left    (idx * 2)
-#define right   (idx * 2 + 1)
-#define mid     ((lo + hi) / 2)
-
+#define left    (idx << 1) // (idx * 2)
+#define right   (idx << 1 | 1) // (idx * 2 + 1)
+#define mid     ((lo + hi) >> 1) // ((lo + hi) / 2)
 
 void build(int idx, int lo, int hi) {
     if (lo == hi) {
