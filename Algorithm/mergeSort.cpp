@@ -25,3 +25,36 @@ void MergeSort(vector <int> &v, int left, int right) {
 
     Merge(v, left, mid, right);
 }
+
+
+
+// another way
+
+vector <int> mergesort(vector <int> v){
+   if(sz(v) == 1) return v;
+
+   int mid = sz(v) / 2;
+   vector <int> left, right;
+
+   for(int i = 0; i < mid; i++) left.push_back(v[i]);
+   for(int i = mid; i < sz(v); i++) right.push_back(v[i]);
+
+   left  = mergesort(left);
+   right = mergesort(right);
+
+   v.clear();
+   reverse(all(left)), reverse(all(right));
+
+   while(!left.empty() or !right.empty()){
+      if(sz(left) >= 1 and sz(right) >= 1){
+         if(left.back() <= right.back()) v.push_back(left.back()), left.pop_back();
+         else v.push_back(right.back()), right.pop_back();
+      }
+      else {
+         if(left.empty()) v.push_back(right.back()), right.pop_back();
+         else v.push_back(left.back()), left.pop_back();
+      }
+   }
+
+   return v;
+}

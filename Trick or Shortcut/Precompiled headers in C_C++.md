@@ -1,7 +1,10 @@
-gcc --version
+gcc --version (for ubuntu)
 sudo g++ -std=gnu++17 -O2 -DLOCAL -Wall /usr/include/x86_64-linux-gnu/c++/11(this version maybe vary)/bits/stdc++.h
-cd /usr/include/x86_64-linux-gnu/c++/11/bits/ (stdc++.h.gch)
+cd /usr/include/x86_64-linux-gnu/c++/11/bits/ (stdc++.h.gch) // if you found that then the work is done.
 
+
+(for fedora)
+sudo g++ -std=gnu++17 -O2 -DLOCAL -Wall /usr/include/c++/13/x86_64-redhat-linux/bits/stdc++.h
 
 
 This blog is about speeding up C/C++ compilers with precompiled headers.

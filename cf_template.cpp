@@ -1,7 +1,6 @@
  <snippet>
     <content><![CDATA[
 #include <bits/stdc++.h>
-
 using namespace std;
 using ld = long double;
 const ld PI = acos((ld) - 1);
@@ -13,10 +12,11 @@ using ull = unsigned long long;
 #define mem(a,x)      memset(a,x,sizeof(a))
 #define all(x)        (x).begin(),(x).end()
 #define rall(x)       (x).rbegin(),(x).rend()
+//to_string(x)             sqrtl()   stol(s);
 
 template              <typename T>
 using minHeap = priority_queue<T, vector<T>, greater<T>>;
-//stol(s);      sqrtl()    to_string(x);
+
 
 #ifdef LOCAL
 #include "debug.h"
