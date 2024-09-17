@@ -12,30 +12,33 @@ using ull = unsigned long long;
 #define rall(x)       (x).rbegin(),(x).rend()
 //to_string(x)             sqrtl()   stol(s);
 
-string ans;
-
-int call(int l, int r, int val, vector <int> &v, string s){
-   if(l > r) return 0;
-   if(ans < s) ans = s;
-   int one = 0;
-   if(v[l] > val) one = max(one, 1 + call(l+1, r, v[l], v, s + 'L'));
-   if(v[r] > val) one = max(one, 1 + call(l, r-1, v[r], v, s + 'R'));
-   if(v[l] == v[r]) one = max(1 + call(l+1, r, v[l], v, s + 'L'), 1 + call(l, r-1, v[r], v, s + 'R'));
-   return one;
-}
-
 void solve() {
-   int n;
-   cin >> n;
+   int n, k;
+
+   cin >> n >> k;
    vector <int> v(n);
    for(auto &it : v) cin >> it;
-   if(v[0] < v[n-1]){
-      cout << call(1, n-1, v[0], v, "L") << endl;
+
+   deque <int> d;
+   vector <int> ans;
+
+   for(int i = 0; i < k; i++){
+      while(!d.empty() and v[d.back()] > v[i]) d.pop_back();
+      d.push_back(i);
    }
-   else {
-      cout << call(0, n-2, v[n-1], v, "R") << endl;
+   ans.push_back(v[d.front()]);
+
+   for(int i = k; i < n; i++){
+      if(d.front() == i-k) d.pop_front();
+
+      while(!d.empty() and v[d.back()] > v[i]) d.pop_back();
+
+      d.push_back(i);
+      ans.push_back(v[d.front()]);
    }
-   cout << ans << endl;
+
+   for(auto it : ans) cout << it << ' ';
+   cout << endl;
 }
 
 signed main() {

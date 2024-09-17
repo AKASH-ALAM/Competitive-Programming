@@ -1,82 +1,44 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-// Function to return precedence of operators
-int prec(char c) {
-   if (c == '^')
-      return 3;
-   else if (c == '/' || c == '*')
-      return 2;
-   else if (c == '+' || c == '-')
-      return 1;
-   else
-      return -1;
+void heapify(int arr[], int n, int i){
+    int largest = i; 
+    int l = 2 * i + 1; 
+    int r = 2 * i + 2;
+
+    if (l < n && arr[l] > arr[largest]) largest = l;
+    if (r < n && arr[r] > arr[largest]) largest = r;
+
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
 }
 
-// Function to return associativity of operators
-char associativity(char c) {
-   if (c == '^')
-      return 'R';
-   return 'L'; // Default to left-associative
+void heapSort(int arr[], int n){
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+
+    for (int i = n - 1; i >= 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
 }
 
-// The main function to convert infix expression
-// to postfix expression
-void infixToPostfix(string s) {
-   stack<char> st;
-   string result;
+int main(){
+    int arr[] = {7, 10, 4, 3, 20, 15};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int k = 3;
 
-   for (int i = 0; i < s.length(); i++) {
-      char c = s[i];
+    heapSort(arr, n);
+    
+    cout << "K = " << k << endl;
+    cout << "Output = " << arr[k-1] << endl << endl; 
 
-      // If the scanned character is
-      // an operand, add it to the output string.
-      if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
-         result += c;
+    k = 4;
 
-      // If the scanned character is an
-      // ‘(‘, push it to the stack.
-      else if (c == '(')
-         st.push('(');
-
-      // If the scanned character is an ‘)’,
-      // pop and add to the output string from the stack
-      // until an ‘(‘ is encountered.
-      else if (c == ')') {
-         while (st.top() != '(') {
-            result += st.top();
-            st.pop();
-         }
-         st.pop(); // Pop '('
-      }
-
-      // If an operator is scanned
-      else {
-         while (!st.empty() && prec(s[i]) < prec(st.top()) ||
-            !st.empty() && prec(s[i]) == prec(st.top()) &&
-            associativity(s[i]) == 'L') {
-            result += st.top();
-            st.pop();
-         }
-         st.push(c);
-      }
-   }
-
-   // Pop all the remaining elements from the stack
-   while (!st.empty()) {
-      result += st.top();
-      st.pop();
-   }
-
-   cout << result << endl;
-}
-
-// Driver code
-int main() {
-   string exp = "a+b*(c^d-e)^(f+g*h)-i";
-
-   // Function call
-   infixToPostfix(exp);
-
-   return 0;
+    cout << "K = " << k << endl;
+    cout << "Output = " << arr[k-1] << endl; 
+    
+    return 0;
 }

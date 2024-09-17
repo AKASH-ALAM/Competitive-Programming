@@ -32,3 +32,46 @@ string lcs(string a, string b) {
 	}
 	return ans;
 }
+
+//Another way
+const int N = 1e3;
+
+string a, b;   
+int dp[N][N];
+int path[N][N];
+
+int f(int i, int j){
+   if(i == sz(a) or j == sz(b)) return 0;
+   if(dp[i][j] != -1) return dp[i][j];
+
+   if(a[i] == b[j]) {
+      path[i][j] = 1;
+      return dp[i][j] =  1 + f(i+1, j+1);
+   }
+   int one = f(i+1, j);
+   int two = f(i, j+1);
+
+   if(one > two) path[i][j] = 2;
+   else path[i][j] = 3;
+
+   return dp[i][j] = max(one, two);
+}
+
+void print(int i, int j){
+   if(i == sz(a) or j == sz(b)) return;
+   if(path[i][j] == 1) {
+      cout << a[i];
+      print(i+1, j+1);
+   }  
+   else if(path[i][j] == 2) print(i+1, j);
+   else print(i, j+1);
+}
+
+void solve() {
+   cin >> a >> b;
+   mem(dp, -1);
+
+   cout << f(0, 0) << endl;
+
+   print(0, 0);
+}

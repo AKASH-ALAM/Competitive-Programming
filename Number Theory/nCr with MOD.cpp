@@ -17,6 +17,7 @@ void precalc() {
 		inv[i] =  ModInverse(fact[i], MOD);
 	}
 }
+
 int main() {
 	precalc();
 	int T;
