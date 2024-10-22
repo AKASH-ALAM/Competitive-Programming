@@ -1,6 +1,6 @@
-#define left    2*node
-#define right   2*node+1
-#define mid     (lo + (hi-lo)/2)
+#define left    (idx << 1) // (idx * 2)
+#define right   (idx << 1 | 1) // (idx * 2 + 1)
+#define mid     ((lo + hi) >> 1) // ((lo + hi) / 2)
 const int lim = 2e5 + 5;
 
 ll input[lim];
