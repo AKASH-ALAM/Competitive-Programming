@@ -34,7 +34,7 @@ void solve() {
       cin >> node;
 
       for(int i = 0; i < 26; i++){
-         if(sbtr[node][i] != 0) cout << char(i + 'a') << " = " << sb`tr[node][i] << endl; 
+         if(sbtr[node][i] != 0) cout << char(i + 'a') << " = " << sbtr[node][i] << endl; 
          if(sbtr[node][i] % 2 == 0) even++;
          else odd++;
       }

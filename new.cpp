@@ -1,44 +1,34 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
+using ld = long double;
+const ld PI = acos((ld) - 1);
+using ull = unsigned long long;
 
-void heapify(int arr[], int n, int i){
-    int largest = i; 
-    int l = 2 * i + 1; 
-    int r = 2 * i + 2;
+#define endl          '\n'
+#define int           long long
+#define sz(x)         (int)x.size()
+#define mem(a,x)      memset(a,x,sizeof(a))
+#define all(x)        (x).begin(),(x).end()
+#define rall(x)       (x).rbegin(),(x).rend()
+//to_string(x)             sqrtl()   stol(s);
 
-    if (l < n && arr[l] > arr[largest]) largest = l;
-    if (r < n && arr[r] > arr[largest]) largest = r;
-
-    if (largest != i) {
-        swap(arr[i], arr[largest]);
-        heapify(arr, n, largest);
-    }
+void solve() {
+   int n, k;    cin >> n >> k;
+   if(k == (1+n)/2){
+    cout << n << endl;
+    for(int i = 1; i <= n; i++) cout << i << ' ';
+    cout << endl;
+   } else cout << -1 << endl;
 }
 
-void heapSort(int arr[], int n){
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
-
-    for (int i = n - 1; i >= 0; i--) {
-        swap(arr[0], arr[i]);
-        heapify(arr, i, 0);
-    }
-}
-
-int main(){
-    int arr[] = {7, 10, 4, 3, 20, 15};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    int k = 3;
-
-    heapSort(arr, n);
-    
-    cout << "K = " << k << endl;
-    cout << "Output = " << arr[k-1] << endl << endl; 
-
-    k = 4;
-
-    cout << "K = " << k << endl;
-    cout << "Output = " << arr[k-1] << endl; 
-    
-    return 0;
+signed main() {
+   ios_base::sync_with_stdio(false);
+   cin.tie(nullptr);
+   int t = 1;
+   cin >> t;
+   //cin.ignore();
+   while (t--) {
+      solve();
+   }
+   return 0;
 }

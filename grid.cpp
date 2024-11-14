@@ -13,32 +13,26 @@ using ull = unsigned long long;
 //to_string(x)             sqrtl()   stol(s);
 
 void solve() {
-   int n;
-   cin >> n;
-   vector <int> v;
-   for(int i = 1; i <= n; i += 2) v.push_back(i);
-   for(auto it : v) cout << it << ' ';
-   cout << endl;
+   int n;   cin >> n;
+   vector <int> v(n);
+   for(auto &it : v) cin >> it;
+   sort(all(v));
 
-   while(sz(v) != 1){
-      vector <int> tmp;
-      
-      for(int i = sz(v) % 2; i < sz(v); i += 2){
-         if(i % 2 == 0) cout << v[i] << ' ';
-         else tmp.push_back(v[i]);
-      } cout << endl;
- 
-      v = tmp;
-      for(auto it : v) cerr << it << ' ';
-      cerr << endl;
-   }   
+   int mx = v[n-1];
+   int cnt = 0;
+   // cerr << mx << endl;
+   for(int i = 0; i < n-1; i++){
+      if(v[i]+v[i+1] <= mx) cnt++;
+   }
+
+   cout << cnt << endl;
 }
 
 signed main() {
    ios_base::sync_with_stdio(false);
    cin.tie(nullptr);
    int t = 1;
-   // cin >> t;
+   cin >> t;
    //cin.ignore();
    while (t--) {
       solve();
