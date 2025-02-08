@@ -1,55 +1,48 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-vector<int> tree[200001];
-int ancestor[200001][21] ;
- 
-void pre_process(int node, int par){
- 
-    ancestor[node][0] = par;
- 
-    for(int i = 1; i <=20; i++){
-        if(ancestor[node][i-1] != -1){
-            ancestor[node][i] = ancestor[ancestor[node][i-1]][i-1];
-        }else{  
-            ancestor[node][i] = -1;
-        } 
-    }
- 
-    for(auto ch : tree[node]){
-          pre_process(ch, node);
-    }
-}
- 
-int query(int node, int k){
-    if(k == 0 or node == -1){
-        return node;
-    }  
-    int up = -1;
-    for(int i = 20; i >= 0; i--){
-        if(k&(1<<i)){
-            up = query(ancestor[node][i], k - (1<<i));
-        }
-    } 
-    return up;
-}
- 
- 
- 
-int main() {
-    int n , q ;
-    cin>>n>>q;
+using ld = long double;
+const ld PI = acos((ld) - 1);
+using ull = unsigned long long;
 
-    for(int i = 2 ; i <= n ; i++){
-      int p ; 
-      cin>>p ;
-      tree[p].push_back(i) ; 
-    }
+#define endl          '\n'
+#define int           long long
+#define sz(x)         (int)x.size()
+#define mem(a,x)      memset(a,x,sizeof(a))
+#define all(x)        (x).begin(),(x).end()
+#define rall(x)       (x).rbegin(),(x).rend()
+//to_string(x)             sqrtl()   stol(s);
 
-    pre_process(1,-1) ;
-    for(int i = 0 ; i < q ; i++){
-      int x , k ; 
-      cin>>x>>k ;
-      cout<<query(x,k)<<endl ; 
-    }
-    return 0;
+template              <typename T>
+using minHeap = priority_queue<T, vector<T>, greater<T>>;
+
+#ifdef LOCAL
+#include "debug.h"
+#else
+#define debug(...)
+#endif
+
+void solve() {
+   int n;   cin >> n;
+   string s;   cin >> s;
+   int arr[26] = {0};
+   int cnt = 0;
+   for(int i = 0; i < n; i++){
+      if(!arr[s[i]-'a']){
+         cnt += n - i;
+         arr[s[i]-'a'] = 1;
+      }
+   }
+   cout << cnt << endl;
+}
+
+signed main() {
+   ios_base::sync_with_stdio(false);
+   cin.tie(nullptr);
+   int t = 1;
+   cin >> t;
+   //cin.ignore();
+   while (t--) {
+      solve();
+   }
+   return 0;
 }
