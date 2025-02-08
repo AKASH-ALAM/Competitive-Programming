@@ -6,10 +6,12 @@
 *.sublime-workspace
 Debugging.out
 Code.cpp
+code.cpp
 test.cpp
 test.c
 temp.cpp
 Code
+code
 test
 temp
 grid
