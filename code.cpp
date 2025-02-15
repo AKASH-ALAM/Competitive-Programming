@@ -1,99 +1,94 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ld = long double;
-const ld PI = acos((ld) - 1);
-using ull = unsigned long long;
+#define int long long
+const int MOD = 1e9 + 9;
+const int BASE = 37;
 
-#define endl          '\n'
-#define LL           long long
-#define sz(x)         (int)x.size()
-#define mem(a,x)      memset(a,x,sizeof(a))
-#define all(x)        (x).begin(),(x).end()
-#define rall(x)       (x).rbegin(),(x).rend()
-
-const int N = 1700000;
-const int MOD = 1e9 + 7;
-const LL P[] = {97, 1000003};
-
-LL bigMod (LL a, LL e) {
-  if (e == -1) e = MOD - 2;
-  LL ret = 1;
-  while (e) {
-    if (e & 1) ret = ret * a % MOD;
-    a = a * a % MOD, e >>= 1;
-  }
-  return ret;
-}
-
-int pwr[2][N], inv[2][N];
-
-void initHash() {
-  for (int it = 0; it < 2; ++it) {
-    pwr[it][0] = inv[it][0] = 1;
-    LL INV_P = bigMod(P[it], -1);
-    for (int i = 1; i < N; ++i) {
-      pwr[it][i] = (LL) pwr[it][i - 1] * P[it] % MOD;
-      inv[it][i] = (LL) inv[it][i - 1] * INV_P % MOD;
+// Function to compute power for rolling hash
+int power(int base, int exp, int mod) {
+    int res = 1;
+    while (exp > 0) {
+        if (exp % 2) res = (res * base) % mod;
+        base = (base * base) % mod;
+        exp /= 2;
     }
-  }
+    return res;
 }
 
-//Call initHash. The functions are 0 indexed.
-struct RangeHash {
-  vector <int> h[2], rev[2];
-
-  RangeHash (const string S, bool revFlag = 0) {
-    for (int it = 0; it < 2; ++it) {
-      h[it].resize(S.size() + 1, 0);
-      for (int i = 0; i < S.size(); ++i) {
-        h[it][i + 1] = (h[it][i] + (LL) pwr[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
-      }
-      if (revFlag) {
-        rev[it].resize(S.size() + 1, 0);
-        for (int i = 0; i < S.size(); ++i) {
-          rev[it][i + 1] = (rev[it][i] + (LL) inv[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
+// Booth’s Algorithm to find the smallest lexicographical cyclic rotation in O(M)
+vector<int> getMinCyclicRotation(vector<int> B) {
+    int M = B.size();
+    vector<int> BB = B;
+    BB.insert(BB.end(), B.begin(), B.end()); // Duplicate array to simulate cyclic shifts
+    int N = BB.size();
+    
+    vector<int> f(N, -1);
+    int k = 0; // Index of the lexicographically minimal rotation
+    
+    for (int j = 1; j < N; j++) {
+        int i = f[j - k - 1];
+        while (i != -1 && BB[j] != BB[k + i + 1]) {
+            if (BB[j] < BB[k + i + 1]) k = j - i - 1;
+            i = f[i];
         }
-      }
+        if (BB[j] != BB[k + i + 1]) {
+            if (BB[j] < BB[k]) k = j;
+            f[j - k] = -1;
+        } else {
+            f[j - k] = i + 1;
+        }
     }
-  }
-
-  inline LL get (int l, int r) {
-    if (l > r) return 0;
-    LL one = (LL) (h[0][r + 1] - h[0][l]) * inv[0][l + 1] % MOD;
-    LL two = (LL) (h[1][r + 1] - h[1][l]) * inv[1][l + 1] % MOD;
-    if (one < 0) one += MOD; if (two < 0) two += MOD;
-    return one << 31 | two;
-  }
-
-  inline LL getReverse (int l, int r) {
-    if (l > r) return 0;
-    LL one = (LL) (rev[0][r + 1] - rev[0][l]) * pwr[0][r + 1] % MOD;
-    LL two = (LL) (rev[1][r + 1] - rev[1][l]) * pwr[1][r + 1] % MOD;
-    if (one < 0) one += MOD; if (two < 0) two += MOD;
-    return one << 31 | two;
-  }
-};
+    
+    return vector<int>(BB.begin() + k, BB.begin() + k + M); // Return best cyclic rotation
+}
 
 void solve() {
-   int n;   cin >> n;
-   string s;   cin >> s;
+    int N, M;
+    cin >> N >> M;
+    
+    vector<int> A(N), B(M);
+    for (int i = 0; i < N; i++) cin >> A[i];
+    for (int i = 0; i < M; i++) cin >> B[i];
 
-   initHash();
-   RangeHash hash(s);
-   cout << hash.get(1, 2) << endl;
+    // Get the smallest cyclic rotation of B
+    vector<int> bestB = getMinCyclicRotation(B);
 
-   RangeHash rev(s, 1);
-   cout << rev.getReverse(1, 2) << endl;
+    // Compute rolling hash of B for quick comparison
+    int B_hash = 0, window_hash = 0, powerM = power(BASE, M - 1, MOD);
+    for (int i = 0; i < M; i++) {
+        B_hash = (B_hash * BASE + bestB[i]) % MOD;
+        window_hash = (window_hash * BASE + A[i]) % MOD;
+    }
+
+    // Use rolling hash to check windows efficiently
+    for (int i = 0; i <= N - M; i++) {
+        // Compare actual values if hash matches
+        vector<int> window(A.begin() + i, A.begin() + i + M);
+        if (window > bestB) { // Lexicographical comparison
+            copy(bestB.begin(), bestB.end(), A.begin() + i);
+        }
+
+        // Rolling hash update
+        if (i < N - M) {
+            window_hash = (window_hash - A[i] * powerM % MOD + MOD) % MOD;
+            window_hash = (window_hash * BASE + A[i + M]) % MOD;
+        }
+    }
+
+    // Print the result
+    for (int i = 0; i < N; i++) cout << A[i] << " ";
+    cout << "\n";
 }
 
-signed main() {
-   ios_base::sync_with_stdio(false);
-   cin.tie(nullptr);
-   int t = 1;
-   cin >> t;
-   //cin.ignore();
-   while (t--) {
-      solve();
-   }
-   return 0;
+int32_t main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+    while (T--) {
+        solve();
+    }
+
+    return 0;
 }
