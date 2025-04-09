@@ -21,18 +21,48 @@ using minHeap = priority_queue<T, vector<T>, greater<T>>;
 #define debug(...)
 #endif
 
-void solve() {
-   int n;   cin >> n;
-   string s;   cin >> s;
-   int arr[26] = {0};
-   int cnt = 0;
-   for(int i = 0; i < n; i++){
-      if(!arr[s[i]-'a']){
-         cnt += n - i;
-         arr[s[i]-'a'] = 1;
-      }
+int t, n, st, en;
+vector<vector<int>> adj;
+
+bool dfs(int u, int p, int en, vector<int>& path) {
+   path.push_back(u);
+   if (u == en) return true;
+   for (int v : adj[u]) {
+      if (v == p) continue;
+      if (dfs(v, u, en, path)) return true;
    }
-   cout << cnt << endl;
+   path.pop_back();
+   return false;
+}
+
+void solve() {
+   cin >> n >> st >> en;
+   adj.assign(n + 1, vector<int>());
+
+   for (int i = 1; i <= n - 1; i++) {
+      int u, v;   cin >> u >> v;
+      adj[u].push_back(v);
+      adj[v].push_back(u);
+   }
+
+   vector<int> path;
+   dfs(st, -1, en, path);
+
+   vector<bool> inPath(n + 1, false);
+   for (int v : path) {
+      inPath[v] = true;
+   }
+
+   vector<int> perm;
+   for (int i = 1; i <= n; i++) {
+      if (!inPath[i])
+         perm.push_back(i);
+   }
+   for (int v : path)   perm.push_back(v);
+
+   for (int i = 0; i < n; i++) {
+      cout << perm[i] << " \n"[i == n-1];
+   }
 }
 
 signed main() {

@@ -18,7 +18,6 @@ using ull = unsigned long long;
 #define all(x)        (x).begin(),(x).end()
 #define rall(x)       (x).rbegin(),(x).rend()
 #define prec(x)       fixed<<setprecision(x)
-#define mem(a,x)      memset(a,x,sizeof(a))
 #define testcase      cout << "Case " << cs++ << ":"
 //stol(s);sqrtl()     to_string(x);
 
