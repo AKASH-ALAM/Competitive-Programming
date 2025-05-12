@@ -1,5 +1,4 @@
 int spf[MX];
-vector <int> factors;
 
 void pre_cal_spf() {
    for (int i = 2; i < MX; i += 2) spf[i] = 2;
@@ -10,9 +9,22 @@ void pre_cal_spf() {
    }
 }
 
+vector <int> factors;
+
 void machine(int n) {
    while (n > 1) {
       factors.push_back(spf[n]);
       n /= spf[n];
    }
+}
+
+vector <pair<int, int>> v; // prime, cnt
+
+while(n > 1){
+   int p = spf[n], cnt = 0;
+   while(n % p == 0){
+      n /= p;
+      cnt++;
+   }
+   v.push_back({p, cnt});
 }

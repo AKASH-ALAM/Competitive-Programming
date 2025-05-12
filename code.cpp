@@ -5,7 +5,7 @@ const ld PI = acos((ld) - 1);
 using ull = unsigned long long;
 
 #define endl          '\n'
-#define int           long long
+#define ll           long long
 #define sz(x)         (int)x.size()
 #define all(x)        (x).begin(),(x).end()
 #define rall(x)       (x).rbegin(),(x).rend()
@@ -20,50 +20,43 @@ using minHeap = priority_queue<T, vector<T>, greater<T>>;
 #define debug(...)
 #endif
 
+ll nCr(ll n, ll r) { //Calculate nCr using Pascal’s Triangle: O(r)
+   if (r > n) return 0;
+   if (r == 0 or n == r) return 1;
+   if (n - r < r) r = n - r;
+
+   r = min(n, r);   ll p = 1;
+
+   for (ll i = 1; i <= r; i++) {
+      p = (p * (n - r + i)) / i;
+   }
+   return p;
+}
+
+void print(__int128 x) {
+    if (x < 0) {
+        putchar('-');
+        x = -x;
+    }
+    if (x > 9) print(x / 10);
+    putchar(x % 10 + '0');
+}
+
 void solve() {
-   int n, m, x;
-   cin >> n >> m >> x;
-   vector <pair<int, int>> v;
-   vector <int> indx(n+1);
-
-   for(int i = 0; i < n; i++){
-      int val; cin >> val;
-      v.push_back({val, i});
+   ll n;   cin >> n;
+   __int128 ans = 0;
+   ll len = log2(n) + 1;
+   for(ll i = 1; i <= len; i++) {
+      ans += nCr(len, i) * i;
    }
-
-   sort(rall(v));
-
-   set <pair<int, int>> st;
-
-   for(int i = 0; i < m; i++){
-      st.insert({v[i].first, i});
-      indx[v[i].second] = i;
-   }
-
-   for(int i = m; i < n; i++){
-      int val = st.begin()->first;
-      int idx = st.begin()->second;
-
-      st.erase(st.begin());
-      st.insert({val + v[i].first, idx});
-      indx[v[i].second] = idx;
-   }
-
-   int first = st.begin()->first, last = st.rbegin()->first;
-   
-   if(last - first <= x){
-      cout << "YES" << endl;
-      for(int i = 0; i < n; i++) cout << indx[i] + 1 << ' ';
-      cout << endl;
-   }
-   else cout << "NO" << endl;
+   print(ans);
 }
 
 signed main() {
    ios_base::sync_with_stdio(false);
    cin.tie(nullptr);
    int t = 1;
-   cin >> t;
+   // cin >> t;
    //cin.ignore();
    while (t--) {
       solve();

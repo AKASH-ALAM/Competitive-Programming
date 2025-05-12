@@ -1,5 +1,4 @@
 const int N = 1e6 + 5;
-
 int fact[N];
 
 void fact_count() {
