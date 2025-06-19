@@ -10,7 +10,9 @@ using ull = unsigned long long;
 #define int           long long
 #define sz(x)         (int)x.size()
 #define all(x)        (x).begin(),(x).end()
+#define prec(x)       fixed<<setprecision(x)
 #define rall(x)       (x).rbegin(),(x).rend()
+#define testcase      cout << "Case " << cs++ << ":"
 //to_string(x)             sqrtl()   stol(s);
 
 template              <typename T>

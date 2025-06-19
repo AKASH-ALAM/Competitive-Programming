@@ -3,7 +3,7 @@
     [
         "bash",
         "-c",
-        "g++ -std=c++17 -O2 -DLOCAL -Wall '${file}' -o '${file_path}/${file_base_name}' && gtimeout 3s '${file_path}/${file_base_name}'<in.txt>out.txt"
+        "/opt/homebrew/bin/g++-15 -std=c++17 -O2 -DLOCAL -Wall '${file}' -o '${file_path}/${file_base_name}' && gtimeout 3s '${file_path}/${file_base_name}'<in.txt>out.txt"
     ],
     "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
     "working_dir": "${file_path}",
