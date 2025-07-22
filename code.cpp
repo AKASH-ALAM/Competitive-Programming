@@ -1,58 +1,64 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using ll = long long;
 using ld = long double;
-using namespace __gnu_pbds;
+const ld PI = acos((ld) - 1);
 using ull = unsigned long long;
 
 #define endl          '\n'
-#define sqr(x)        (x) * (x)
-#define gcd(x,y)      __gcd(x,y)
+#define int           long long
 #define sz(x)         (int)x.size()
-#define lcm(x,y)      ((x/gcd(x,y)) * y)
 #define all(x)        (x).begin(),(x).end()
-#define rall(x)       (x).rbegin(),(x).rend()
 #define prec(x)       fixed<<setprecision(x)
-#define testcase      cout << "Case " << cs++ << ":"
-//stol(s);sqrtl()     to_string(x);
+#define rall(x)       (x).rbegin(),(x).rend()
+#define testcase      "Case " << ts++ << ":"
+//to_string(x)             sqrtl()   stol(s);
 
 template              <typename T>
-using minHeap         = priority_queue<T, vector<T>, greater<T>>;
-#define unsyncIO      ios_base::sync_with_stdio(false); cin.tie(nullptr)
-template <class T>    using orderset = tree<T, null_type,
-less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-template <class T> using multiorderset = tree<T, null_type,
-less_equal<T>, rb_tree_tag,tree_order_statistics_node_update>;
-
-const ld PI = acos((ld) - 1);
-const int MOD = 1e9 + 7;
-const ll INF = 2e18 + 1;
-const ld EPS = 1e-9;
-const int MX = 2e6;
-int  cs = 1;
+using minHeap = priority_queue<T, vector<T>, greater<T>>;
 
 #ifdef LOCAL
 #include "debug.h"
 #else
 #define debug(...)
 #endif
+int ts = 1;
 
-void solve(){
-    cout << "Hello" << endl;
+void solve() {
+   int n, m;   cin >> n >> m;
+   int mn = min(n, m), mx = max(n, m);
+   int ans = min(2*mn, mx);
+   cout << ans << endl;
+   if(m >= n){
+      int x = m;
+      for(int i = 1; i <= n; i++){
+         for(int j = 1; j <= x; j++) cout << j << ' ';
+         for(int j = x; j < m; j++) cout << x << ' ';
+         cout << endl;
+         x--;
+      }
+   } else{
+      vector <vector<int>> arr(n+5, vector<int>(m+5));
+      int x = n;
+      for(int i = 1; i <= m; i++){
+         for(int j = 1; j <= x; j++) arr[j][i] = j;
+         for(int j = x; j <= n; j++) arr[j][i] = x;
+         x--;
+      }
+      for(int i = 1; i <= n; i++){
+         for(int j = 1; j <= m; j++) cout << arr[i][j] << ' ';
+         cout << endl;
+      }
+   }
 }
 
-int main() {
-    unsyncIO;
-    int t = 1;
-    //cin >> t;
-
-    //cin.ignore();
-    while (t--) {
-        solve();
-    }
-    return 0;
+signed main() {
+   ios_base::sync_with_stdio(false);
+   cin.tie(nullptr);
+   int t = 1;
+   cin >> t;
+   //cin.ignore();
+   while (t--) {
+      solve();
+   }
+   return 0;
 }
