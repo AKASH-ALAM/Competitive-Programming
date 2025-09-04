@@ -1,64 +1,104 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ld = long double;
-const ld PI = acos((ld) - 1);
-using ull = unsigned long long;
+#define LL long long 
 
-#define endl          '\n'
-#define int           long long
-#define sz(x)         (int)x.size()
-#define all(x)        (x).begin(),(x).end()
-#define prec(x)       fixed<<setprecision(x)
-#define rall(x)       (x).rbegin(),(x).rend()
-#define testcase      "Case " << ts++ << ":"
-//to_string(x)             sqrtl()   stol(s);
+const int N = 1700000;
+const int MOD = 1e9 + 7;
+const LL P[] = {97, 1000003};
 
-template              <typename T>
-using minHeap = priority_queue<T, vector<T>, greater<T>>;
-
-#ifdef LOCAL
-#include "debug.h"
-#else
-#define debug(...)
-#endif
-int ts = 1;
-
-void solve() {
-   int n, m;   cin >> n >> m;
-   int mn = min(n, m), mx = max(n, m);
-   int ans = min(2*mn, mx);
-   cout << ans << endl;
-   if(m >= n){
-      int x = m;
-      for(int i = 1; i <= n; i++){
-         for(int j = 1; j <= x; j++) cout << j << ' ';
-         for(int j = x; j < m; j++) cout << x << ' ';
-         cout << endl;
-         x--;
-      }
-   } else{
-      vector <vector<int>> arr(n+5, vector<int>(m+5));
-      int x = n;
-      for(int i = 1; i <= m; i++){
-         for(int j = 1; j <= x; j++) arr[j][i] = j;
-         for(int j = x; j <= n; j++) arr[j][i] = x;
-         x--;
-      }
-      for(int i = 1; i <= n; i++){
-         for(int j = 1; j <= m; j++) cout << arr[i][j] << ' ';
-         cout << endl;
-      }
-   }
+LL bigMod (LL a, LL e) {
+  if (e == -1) e = MOD - 2;
+  LL ret = 1;
+  while (e) {
+    if (e & 1) ret = ret * a % MOD;
+    a = a * a % MOD, e >>= 1;
+  }
+  return ret;
 }
 
-signed main() {
-   ios_base::sync_with_stdio(false);
-   cin.tie(nullptr);
-   int t = 1;
-   cin >> t;
-   //cin.ignore();
-   while (t--) {
-      solve();
+int pwr[2][N], inv[2][N];
+
+void initHash() {
+  for (int it = 0; it < 2; ++it) {
+    pwr[it][0] = inv[it][0] = 1;
+    LL INV_P = bigMod(P[it], -1);
+    for (int i = 1; i < N; ++i) {
+      pwr[it][i] = (LL) pwr[it][i - 1] * P[it] % MOD;
+      inv[it][i] = (LL) inv[it][i - 1] * INV_P % MOD;
+    }
+  }
+}
+
+//Call initHash. The functions are 0 indexed.
+struct RangeHash {
+  vector <int> h[2], rev[2];
+
+  RangeHash (const string S, bool revFlag = 0) {
+    for (int it = 0; it < 2; ++it) {
+      h[it].resize(S.size() + 1, 0);
+      for (int i = 0; i < (int) S.size(); ++i) {
+        h[it][i + 1] = (h[it][i] + (LL) pwr[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
+      }
+      if (revFlag) {
+        rev[it].resize(S.size() + 1, 0);
+        for (int i = 0; i < (int) S.size(); ++i) {
+          rev[it][i + 1] = (rev[it][i] + (LL) inv[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
+        }
+      }
+    }
+  }
+
+  inline LL get (int l, int r) {
+    if (l > r) return 0;
+    LL one = (LL) (h[0][r + 1] - h[0][l]) * inv[0][l + 1] % MOD;
+    LL two = (LL) (h[1][r + 1] - h[1][l]) * inv[1][l + 1] % MOD;
+    if (one < 0) one += MOD; if (two < 0) two += MOD;
+    return one << 31 | two;
+  }
+
+  inline LL getReverse (int l, int r) {
+    if (l > r) return 0;
+    LL one = (LL) (rev[0][r + 1] - rev[0][l]) * pwr[0][r + 1] % MOD;
+    LL two = (LL) (rev[1][r + 1] - rev[1][l]) * pwr[1][r + 1] % MOD;
+    if (one < 0) one += MOD; if (two < 0) two += MOD;
+    return one << 31 | two;
+  }
+};
+
+void solve() {
+   string s;   cin >> s;
+
+   initHash();
+   RangeHash hash(s);
+   int n = s.size();
+
+   int i = 0, j = n-1;
+   vector <int> v;
+   while(i < n-1 and j > 0){
+      if(hash.get(0, i) == hash.get(j, n-1)) {
+         v.push_back(i);
+      }
+      i++, j--;
    }
-   return 0;
+   sort(v.rbegin(), v.rend());
+
+   for(auto R : v){
+      for(int i = 1; i + R < n - 1; i++){
+      // cerr << i << ' ' << i + R << endl;
+        if(hash.get(0, R) == hash.get(i, i + R)) {
+            for (int k = 0; k <= R; k++) cout << s[k];
+            cout << '\n';
+            return;
+        }
+      }
+   }
+
+   cout << "Just a legend\n";
+}
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    solve();
 }

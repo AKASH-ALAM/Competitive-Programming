@@ -1,8 +1,6 @@
-class DisjointSet { // O(4xalpha) = Constant time
-public:
+struct DSU {        // O(4xalpha) = Constant time
     vector <int> size, parent;
-
-    DisjointSet(int n) {
+    DSU (int n) {
         size.resize(n + 1);
         parent.resize(n + 1);
         for (int i = 0; i <= n; i++) {
@@ -11,38 +9,33 @@ public:
         }
     }
 
-    int FindUPar(int node) {
+    int Find (int node) {
         if (node == parent[node]) return node;
-        return parent[node] = FindUPar(parent[node]);
+        return parent[node] = Find(parent[node]);
     }
 
-    void UnionBySize(int u, int v) {
-        int ulp_u = FindUPar(u);
-        int ulp_v = FindUPar(v);
-        if (ulp_u == ulp_v) return;
-        if (size[ulp_u] < size[ulp_v]) {
-            parent[ulp_u] = ulp_v;
-            size[ulp_v] += size[ulp_u];
-        }
-        else {
-            parent[ulp_v] = ulp_u;
-            size[ulp_u] += size[ulp_v];
-        }
+    void Union (int u, int v) {
+        u = Find(u), v = Find(v);
+        if (u == v) return;
+        if(size[u] < size[v]) swap(u, v);
+        
+        parent[v] = u;
+        size[u] += size[v];
     }
 };
 
-void solve() {
-    DisjointSet ds(7);
-    ds.UnionBySize(1, 2);
-    ds.UnionBySize(2, 3);
-    ds.UnionBySize(4, 5);
-    ds.UnionBySize(6, 7);
-    ds.UnionBySize(5, 6);
+void solve () {
+    DSU ds(7);
+    ds.Union(1, 2);
+    ds.Union(2, 3);
+    ds.Union(4, 5);
+    ds.Union(6, 7);
+    ds.Union(5, 6);
     //if 3 and 7 are same or not
-    if (ds.FindUPar(3) == ds.FindUPar(7)) cout << "Same" << endl;
+    if (ds.Find(3) == ds.Find(7)) cout << "Same" << endl;
     else cout << "Not Same" << endl;
 
-    ds.UnionBySize(3, 7);
-    if (ds.FindUPar(3) == ds.FindUPar(7)) cout << "Same" << endl;
+    ds.Union(3, 7);
+    if (ds.Find(3) == ds.Find(7)) cout << "Same" << endl;
     else cout << "Not Same" << endl;
 }

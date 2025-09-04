@@ -1,18 +1,12 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
 
-using namespace __gnu_pbds;
 using namespace std;
 using ll = long long;
 using ld = long double;
 using ull = unsigned long long;
 
 #define endl          '\n'
-#define sqr(x)        (x) * (x)
-#define gcd(x,y)      __gcd(x,y)
 #define sz(x)         (int)x.size()
-#define lcm(x,y)      ((x/gcd(x,y)) * y)
 #define all(x)        (x).begin(),(x).end()
 #define rall(x)       (x).rbegin(),(x).rend()
 #define prec(x)       fixed<<setprecision(x)
@@ -22,11 +16,6 @@ using ull = unsigned long long;
 template              <typename T>
 using minHeap         = priority_queue<T, vector<T>, greater<T>>;
 #define unsyncIO      ios_base::sync_with_stdio(false); cin.tie(nullptr)
-template <class T>    using orderset = tree<T, null_type,
-less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-template <class T> using multiorderset = tree<T, null_type,
-less_equal<T>, rb_tree_tag,tree_order_statistics_node_update>;
 
 const ld PI = acos((ld) - 1);
 const int MOD = 1e9 + 7;
@@ -41,32 +30,68 @@ int  cs = 1;
 #define debug(...)
 #endif
 
+struct DSU { // O(4xalpha) = Constant time
+    vector <int> size, parent;
+
+    DSU(int n) {
+        size.resize(n + 1);
+        parent.resize(n + 1);
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+    }
+
+    int Find(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = Find(parent[node]);
+    }
+
+    void Union(int u, int v) {
+        u = Find(u), v = Find(v);
+        if (u == v) return;
+        if(size[u] < size[v]) swap(u, v);
+        
+        parent[v] = u;
+        size[u] += size[v];
+    }
+}; 
+
 void solve(){
-   int n, q;
-   cin >> n >> q;
-   orderset <int> st;
-   for(int i = 0; i < n; i++){
-      int val; cin >> val;
-      st.insert(val);
-   }
+    int n, m;
+    cin >> n >> m;
+    DSU ds(n);
+
+    for(int i = 0; i < m; i++){
+        char ch;    cin >> ch;
+        if(ch == '+'){
+            int u, v;   
+            cin >> u >> v;
+
+            ds.Union(u, v);
+        }
+        else if(ch == '?'){
+            int u, v;
+            cin >> u >> v;
+
+            if(ds.Find(u) == ds.Find(v)) cout << "Friend" << endl;
+            else cout << "Not Friend" << endl;
+        }
+        else {
+            int u;  cin >> u;
+            cout << "Size : " << ds.size[u] << endl;
+        }
+    }
 }
 
 int main() {
-#ifdef LOCAL
-    clock_t tStart = clock();
-#endif
-
     unsyncIO;
     int t = 1;
-    cin >> t;
-
+    // cin >> t;
     //cin.ignore();
     while (t--) {
         solve();
     }
 
-#ifdef LOCAL
-    cerr << "\nRuntime: " << (ld) (clock() - tStart) / CLOCKS_PER_SEC << " Seconds" << endl;
-#endif
     return 0;
 }
