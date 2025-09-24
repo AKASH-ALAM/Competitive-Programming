@@ -6,6 +6,8 @@ cd /usr/include/x86_64-linux-gnu/c++/11/bits/ (stdc++.h.gch) // if you found tha
 (for fedora)
 sudo g++ -std=gnu++17 -O2 -DLOCAL -Wall /usr/include/c++/13/x86_64-redhat-linux/bits/stdc++.h
 
+(for mac)
+/opt/homebrew/Cellar/gcc/15.1.0/include/c++/15/bits g++-15 -std=gnu++23 -O2 -DLOCAL -Wall stdc++.h
 
 This blog is about speeding up C/C++ compilers with precompiled headers.
 
