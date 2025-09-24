@@ -1,104 +1,182 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define LL long long 
+using ll = long long;
+using ld = long double;
+using ull = unsigned long long;
 
-const int N = 1700000;
+#define endl          '\n'
+#define sz(x)         (int)x.size()
+#define all(x)        (x).begin(),(x).end()
+#define rall(x)       (x).rbegin(),(x).rend()
+#define prec(x)       fixed<<setprecision(x)
+#define testcase      cout << "Case " << cs++ << ":"
+#define unsyncIO      ios_base::sync_with_stdio(false); cin.tie(nullptr)
+
+const ld PI = acos((ld) - 1);
 const int MOD = 1e9 + 7;
-const LL P[] = {97, 1000003};
+const ll INF = 2e18 + 1;
+const ld EPS = 1e-9;
+const int MX = 5e5 + 5;
+int cs = 1;
 
-LL bigMod (LL a, LL e) {
-  if (e == -1) e = MOD - 2;
-  LL ret = 1;
-  while (e) {
-    if (e & 1) ret = ret * a % MOD;
-    a = a * a % MOD, e >>= 1;
-  }
-  return ret;
-}
+int n, m, q;
+int population[MX];
+stack<int> st[MX];
+vector<pair<int,int>> edges;
+vector<pair<int, pair<int,int>>> query;
+multiset<int> mt;
 
-int pwr[2][N], inv[2][N];
-
-void initHash() {
-  for (int it = 0; it < 2; ++it) {
-    pwr[it][0] = inv[it][0] = 1;
-    LL INV_P = bigMod(P[it], -1);
-    for (int i = 1; i < N; ++i) {
-      pwr[it][i] = (LL) pwr[it][i - 1] * P[it] % MOD;
-      inv[it][i] = (LL) inv[it][i - 1] * INV_P % MOD;
-    }
-  }
-}
-
-//Call initHash. The functions are 0 indexed.
-struct RangeHash {
-  vector <int> h[2], rev[2];
-
-  RangeHash (const string S, bool revFlag = 0) {
-    for (int it = 0; it < 2; ++it) {
-      h[it].resize(S.size() + 1, 0);
-      for (int i = 0; i < (int) S.size(); ++i) {
-        h[it][i + 1] = (h[it][i] + (LL) pwr[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
-      }
-      if (revFlag) {
-        rev[it].resize(S.size() + 1, 0);
-        for (int i = 0; i < (int) S.size(); ++i) {
-          rev[it][i + 1] = (rev[it][i] + (LL) inv[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
+struct DSU {
+    vector<int> Sz, Par;
+    DSU (int n) {
+        Sz.assign(n + 1, 0);
+        Par.assign(n + 1, 0);
+        for (int i = 1; i <= n; ++i) {
+            Par[i] = i;
+            Sz[i] = 1;
+            // population[i] already initialized by caller
+            if (!st[i].empty()) {
+                // population[i] already set to st[i].top() by caller (we do that before calling DSU)
+                mt.insert(population[i]);
+            } else {
+                // if empty stack, population[i] is 0 and we choose not to insert 0 into mt
+                // (that's a design choice — keep as original)
+            }
         }
-      }
     }
-  }
 
-  inline LL get (int l, int r) {
-    if (l > r) return 0;
-    LL one = (LL) (h[0][r + 1] - h[0][l]) * inv[0][l + 1] % MOD;
-    LL two = (LL) (h[1][r + 1] - h[1][l]) * inv[1][l + 1] % MOD;
-    if (one < 0) one += MOD; if (two < 0) two += MOD;
-    return one << 31 | two;
-  }
+    int Find (int u) {
+        return Par[u] = (Par[u] == u ? u : Find(Par[u]));
+    }
 
-  inline LL getReverse (int l, int r) {
-    if (l > r) return 0;
-    LL one = (LL) (rev[0][r + 1] - rev[0][l]) * pwr[0][r + 1] % MOD;
-    LL two = (LL) (rev[1][r + 1] - rev[1][l]) * pwr[1][r + 1] % MOD;
-    if (one < 0) one += MOD; if (two < 0) two += MOD;
-    return one << 31 | two;
-  }
+    void Union (int u, int v) {
+        u = Find(u); v = Find(v);
+        if (u == v) return;
+        if (Sz[u] < Sz[v]) swap(u, v);
+
+        Par[v] = u;
+        Sz[u] += Sz[v];
+
+        auto it1 = mt.find(population[u]);
+        if (it1 != mt.end()) mt.erase(it1);
+        auto it2 = mt.find(population[v]);
+        if (it2 != mt.end()) mt.erase(it2);
+
+        population[u] += population[v];
+        mt.insert(population[u]);
+    }
 };
 
-void solve() {
-   string s;   cin >> s;
+void solve(){
+    cin >> n >> m >> q;
 
-   initHash();
-   RangeHash hash(s);
-   int n = s.size();
+    // --- clear globals used across runs ---
+    edges.clear();
+    query.clear();
+    mt.clear();
+    for (int i = 1; i <= n; ++i) {
+        while (!st[i].empty()) st[i].pop();
+    }
+    // initialize population to 0
+    for (int i = 1; i <= n; ++i) population[i] = 0;
 
-   int i = 0, j = n-1;
-   vector <int> v;
-   while(i < n-1 and j > 0){
-      if(hash.get(0, i) == hash.get(j, n-1)) {
-         v.push_back(i);
-      }
-      i++, j--;
-   }
-   sort(v.rbegin(), v.rend());
+    // read initial node top-values
+    for (int i = 1; i <= n; ++i) {
+        int val; cin >> val;
+        st[i].push(val);
+        population[i] = val; // set initial top into population (will be used by DSU ctor)
+    }
 
-   for(auto R : v){
-      for(int i = 1; i + R < n - 1; i++){
-      // cerr << i << ' ' << i + R << endl;
-        if(hash.get(0, R) == hash.get(i, i + R)) {
-            for (int k = 0; k <= R; k++) cout << s[k];
-            cout << '\n';
-            return;
+    // read edges
+    edges.reserve(m);
+    for (int i = 0; i < m; ++i) {
+        int u, v; cin >> u >> v;
+        edges.push_back({u, v});
+    }
+
+    vector<char> have(m, 0);
+
+    // read queries and push additions onto stacks so DSU sees final top-values
+    for (int i = 0; i < q; ++i) {
+        char type; cin >> type;
+        if (type == 'D') {
+            int k; cin >> k;
+            --k; // convert to 0-based edge index
+            query.push_back({0, {k, -1}});
+            if (k >= 0 && k < m) have[k] = 1;
+        } else {
+            int u, x; cin >> u >> x;
+            query.push_back({1, {u, x}});
+            st[u].push(x);
+            // update population[u] to reflect top-of-stack (will be used when DSU constructor reads)
+            population[u] = st[u].top();
         }
-      }
-   }
+    }
 
-   cout << "Just a legend\n";
+    // Build DSU for final graph (after deletions)
+    DSU ds(n);
+
+    // union all edges that are NOT deleted
+    for (int i = 0; i < m; ++i) {
+        if (!have[i]) ds.Union(edges[i].first, edges[i].second);
+    }
+
+    // We'll record states while reversing queries.
+    // Standard approach: push final state, then reverse apply queries and push state after each reversal.
+    vector<int> ans;
+    ans.reserve(q + 1);
+    // push current maximum (0 if mt empty)
+    if (!mt.empty()) ans.push_back(*mt.rbegin());
+    else ans.push_back(0);
+
+    // reverse-process all queries
+    for (int i = q - 1; i >= 0; --i) {
+        int type = query[i].first;
+        if (type == 0) {
+            // reversed deletion -> add (union) the edge back
+            int idx = query[i].second.first;
+            int u = edges[idx].first;
+            int v = edges[idx].second;
+            ds.Union(u, v);
+        } else {
+            // reversed addition: original was "push x onto st[u]" -> we must pop x now
+            int u = query[i].second.first;
+            int x = query[i].second.second;
+
+            int par = ds.Find(u);
+            // remove current component value from multiset (if present)
+            auto it = mt.find(population[par]);
+            if (it != mt.end()) mt.erase(it);
+
+            // current top (oldTop) should be x (but check)
+            int oldTop = (!st[u].empty() ? st[u].top() : 0);
+            // pop the last pushed value (reverse the earlier push)
+            if (!st[u].empty()) st[u].pop();
+            int newTop = (!st[u].empty() ? st[u].top() : 0);
+
+            // adjust population of the component
+            // population[par] = population[par] - oldTop + newTop
+            population[par] += (newTop - oldTop);
+
+            // re-insert updated component value
+            mt.insert(population[par]);
+        }
+        // push current max after this reversal step
+        if (!mt.empty()) ans.push_back(*mt.rbegin());
+        else ans.push_back(0);
+    }
+
+    // ans[0] = after all q queries, ans[1] = after q-1 queries, ..., ans[q] = initial before any query
+    // we want outputs after each prefix of original queries: A1..Aq = ans[q-1], ans[q-2], ..., ans[0]
+    for (int j = q - 1; j >= 0; --j) {
+        cout << ans[j] << '\n';
+    }
 }
 
-int main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    solve();
+int main() {
+    unsyncIO;
+    int t = 1;
+    // cin >> t;
+    while (t--) solve();
+    return 0;
 }

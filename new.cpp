@@ -30,58 +30,71 @@ int  cs = 1;
 #define debug(...)
 #endif
 
-struct DSU { // O(4xalpha) = Constant time
-    vector <int> size, parent;
+int cnt = 0;
 
-    DSU(int n) {
-        size.resize(n + 1);
-        parent.resize(n + 1);
+struct DSU {        // O(4xalpha) = Constant time
+    vector <int> Sz, Par;
+    DSU (int n) {
+        Sz.resize(n + 1), Par.resize(n + 1);
         for (int i = 0; i <= n; i++) {
-            parent[i] = i;
-            size[i] = 1;
+            Par[i] = i, Sz[i] = 1;
         }
     }
 
-    int Find(int node) {
-        if (node == parent[node]) return node;
-        return parent[node] = Find(parent[node]);
+    int Find (int u) {
+        return Par[u] = Par[u] == u ? u : Find(Par[u]);
     }
 
-    void Union(int u, int v) {
+    void Union (int u, int v) {
         u = Find(u), v = Find(v);
         if (u == v) return;
-        if(size[u] < size[v]) swap(u, v);
-        
-        parent[v] = u;
-        size[u] += size[v];
+        if(Sz[u] < Sz[v]) swap(u, v);
+        Par[v] = u, Sz[u] += Sz[v];
     }
-}; 
+};
+
 
 void solve(){
-    int n, m;
-    cin >> n >> m;
+    int n, m;   cin >> n >> m;
+    vector <pair<int, int>> g;
+    for(int i = 1; i <= m; i++){
+        int u, v;   
+        cin >> u >> v;
+        g.push_back({u, v});
+    }
+
+    bool vis[m+2];
+    memset(vis, 0, sizeof(vis));
+
+    vector <int> ans;
+    int q;  cin >> q;
+    vector <int> thread;
+
+    for(int i = 0; i < q; i++){
+        int x;  cin >> x;
+        x--;
+        vis[x] = 1;
+        thread.push_back(x);
+    }
+    cnt = n;
     DSU ds(n);
 
     for(int i = 0; i < m; i++){
-        char ch;    cin >> ch;
-        if(ch == '+'){
-            int u, v;   
-            cin >> u >> v;
-
+        if(!vis[i]) {
+            auto [u, v] = g[i];
             ds.Union(u, v);
         }
-        else if(ch == '?'){
-            int u, v;
-            cin >> u >> v;
-
-            if(ds.Find(u) == ds.Find(v)) cout << "Friend" << endl;
-            else cout << "Not Friend" << endl;
-        }
-        else {
-            int u;  cin >> u;
-            cout << "Size : " << ds.size[u] << endl;
-        }
     }
+    ans.push_back(cnt);
+
+    for(int i = q-1; i > 0; i--){
+        auto [u, v] = g[thread[i]];
+        ds.Union(u, v);
+        ans.push_back(cnt); 
+    }
+
+    for(int i = q-1; i >= 0; i--) cout << ans[i] << ' ';
+    cout << endl;
 }
 
 int main() {
