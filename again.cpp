@@ -68,7 +68,7 @@ void SCC(vector<vector<int>> const& adj, int n) {
 }
 
 void solve() {
-   int n, m, k;   cin >> n >> m >> k;
+   int n, m, k;   cin >> n >> m;
    vector <vector<int>> g(n+1);
    for(int i = 0; i < m; i++){
       int u, v;   cin >> u >> v;
