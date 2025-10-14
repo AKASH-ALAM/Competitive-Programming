@@ -78,7 +78,6 @@ void Kosaraju(vector <vector<int>> const& g, int &n, int &k) {
     cout << ans << endl;
 }
 
-
 void solve(){
    int n, m, k;    cin >> n >> m >> k;
    vector <vector<int>> g(n+1);
