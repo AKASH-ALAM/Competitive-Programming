@@ -9,76 +9,53 @@ using ull = unsigned long long;
 #define sz(x)         (int)x.size()
 #define all(x)        (x).begin(),(x).end()
 #define rall(x)       (x).rbegin(),(x).rend()
-#define prec(x)       fixed<<setprecision(x)
+#define prec(x)       fixed << setprecision(x)
 #define testcase      cout << "Case " << cs++ << ":"
 //stol(s);sqrtl()     to_string(x);
 
 template              <typename T>
 using minHeap         = priority_queue<T, vector<T>, greater<T>>;
-#define unsyncIO      ios_base::sync_with_stdio(false); cin.tie(nullptr)
 
 const ld PI = acos((ld) - 1);
 const int MOD = 1e9 + 7;
 const ll INF = 2e18 + 1;
 const ld EPS = 1e-9;
-const int MX = 2e6;
-int  cs = 1;
+const int MX = 250005;
+int  cs = 1, n;
+ll dp[505][MX]; int arr[505];
 
-#ifdef LOCAL
-#include "debug.h"
-#else
-#define debug(...)
-#endif
+ll fun(int i, int m){
+   if(m < 0) return 0;
+   if(i == n+1) {
+      if(m == 0) return 1LL;
+      return 0;
+   }
+   if(dp[i][m] != -1) return dp[i][m];
+   return dp[i][m] = (fun(i+1, m-arr[i]) + fun(i+1, m)) % MOD;
+}
 
 void solve(){
-    int n, m;   cin >> n >> m;
-    vector <pair<int,int>> g[n+1];
+   cin >> n;
+   int m = (n * (n+1));
+   if(m % 4) {
+      cout << 0 << endl;
+      return;
+   }
+   m = m / 4;
+   for(int i = 1; i <= n; i++) arr[i] = i;
+   memset(dp, -1, sizeof(dp));
 
-    for(int i = 0; i < m; i++){
-        int u, v;   cin >> u >> v;
-        g[u].push_back({v, i});
-        g[v].push_back({u, i});
-    }
-
-    vector <int> path;
-    vector <bool> vis(m+1, 0);
-    for(int i = 1; i <= n; i++) {
-        if(sz(g[i]) % 2) {
-            cout << "IMPOSSIBLE" << endl;
-            return;
-        }
-    }
-    stack <int> st;
-    st.push(1);
-
-    while(!st.empty()){
-        int u = st.top();
-        if(!g[u].empty()){
-            auto [v, i] = g[u].back();
-            g[u].pop_back();
-            if(vis[i]) continue;
-            vis[i] = true;
-            st.push(v);
-        }else {
-            path.push_back(u);
-            st.pop();
-        }
-    }
-
-    if(sz(path) == m+1) {
-        for(auto it : path) cout << it << ' ';
-        cout << endl;
-    } else  cout << "IMPOSSIBLE" << endl;
+   cout << fun(1, m) / 2 << endl;
 }
 
 int main() {
-    unsyncIO;
-    int t = 1;
-    // cin >> t;
-    //cin.ignore();
-    while (t--) {
-        solve();
-    }
-
-    return 0;
+   ios_base::sync_with_stdio(false); 
+   cin.tie(nullptr);
+   int t = 1;
+   //cin >> t;
+   //cin.ignore();
+   while (t--) {
+      solve();
+   }
+   return 0;
 }
