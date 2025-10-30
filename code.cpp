@@ -20,32 +20,83 @@ const ld PI = acos((ld) - 1);
 const int MOD = 1e9 + 7;
 const ll INF = 2e18 + 1;
 const ld EPS = 1e-9;
-const int MX = 250005;
-int  cs = 1, n;
-ll dp[505][MX]; int arr[505];
+const int MX = 2e6;
+int  cs = 1;
 
-ll fun(int i, int m){
-   if(m < 0) return 0;
-   if(i == n+1) {
-      if(m == 0) return 1LL;
-      return 0;
-   }
-   if(dp[i][m] != -1) return dp[i][m];
-   return dp[i][m] = (fun(i+1, m-arr[i]) + fun(i+1, m)) % MOD;
+
+const int N = 1700000;
+const ll P[] = {97, 1000003};
+
+ll bigMod (ll a, ll e) {
+  if (e == -1) e = MOD - 2;
+  ll ret = 1;
+  while (e) {
+    if (e & 1) ret = ret * a % MOD;
+    a = a * a % MOD, e >>= 1;
+  }
+  return ret;
 }
 
-void solve(){
-   cin >> n;
-   int m = (n * (n+1));
-   if(m % 4) {
-      cout << 0 << endl;
-      return;
-   }
-   m = m / 4;
-   for(int i = 1; i <= n; i++) arr[i] = i;
-   memset(dp, -1, sizeof(dp));
+int pwr[2][N], inv[2][N];
 
-   cout << fun(1, m) / 2 << endl;
+void initHash() {
+  for (int it = 0; it < 2; ++it) {
+    pwr[it][0] = inv[it][0] = 1;
+    ll INV_P = bigMod(P[it], -1);
+    for (int i = 1; i < N; ++i) {
+      pwr[it][i] = (ll) pwr[it][i - 1] * P[it] % MOD;
+      inv[it][i] = (ll) inv[it][i - 1] * INV_P % MOD;
+    }
+  }
+}
+
+//Call initHash. The functions are 0 indexed.
+struct RangeHash {
+  vector <int> h[2], rev[2];
+
+  RangeHash (const string S, bool revFlag = 0) {
+    for (int it = 0; it < 2; ++it) {
+      h[it].resize(S.size() + 1, 0);
+      for (int i = 0; i < S.size(); ++i) {
+        h[it][i + 1] = (h[it][i] + (ll) pwr[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
+      }
+      if (revFlag) {
+        rev[it].resize(S.size() + 1, 0);
+        for (int i = 0; i < S.size(); ++i) {
+          rev[it][i + 1] = (rev[it][i] + (ll) inv[it][i + 1] * (S[i] - 'a' + 1)) % MOD;
+        }
+      }
+    }
+  }
+
+  inline ll get (int l, int r) {
+    if (l > r) return 0;
+    ll one = (ll) (h[0][r + 1] - h[0][l]) * inv[0][l + 1] % MOD;
+    ll two = (ll) (h[1][r + 1] - h[1][l]) * inv[1][l + 1] % MOD;
+    if (one < 0) one += MOD; if (two < 0) two += MOD;
+    return one << 31 | two;
+  }
+
+  inline ll getReverse (int l, int r) {
+    if (l > r) return 0;
+    ll one = (ll) (rev[0][r + 1] - rev[0][l]) * pwr[0][r + 1] % MOD;
+    ll two = (ll) (rev[1][r + 1] - rev[1][l]) * pwr[1][r + 1] % MOD;
+    if (one < 0) one += MOD; if (two < 0) two += MOD;
+    return one << 31 | two;
+  }
+};
+
+void solve() {
+   string s, m;   cin >> s >> m;
+   initHash();
+   RangeHash hash(s), hash2(m);
+   int len = sz(s), len2 = sz(m);
+   int i = 0, j = len2-1, cnt = 0;
+   while(j < len){
+      if(hash.get(i, j) == hash2.get(0, len2-1)) cnt++;
+      i++,j++;
+   }
+   cout << cnt << endl;
 }
 
 int main() {

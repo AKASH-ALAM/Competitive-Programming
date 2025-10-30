@@ -1,10 +1,3 @@
-/**
- *  Author  : Pnictogen
- *  Task    :
- *  Algo    :
-**/
-#include <bits/stdc++.h>
-using namespace std;
 
 void solve() {
 	string s;
@@ -22,9 +15,4 @@ void solve() {
 	}
 
 	for (auto i : st) cout << i << endl;
-}
-
-int main() {
-
-	return 0;
 }

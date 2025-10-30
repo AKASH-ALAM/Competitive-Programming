@@ -12,5 +12,4 @@ int Ex_gcd(int a, int b, int &x, int &y) {
    return d;
 }
 //ax + by = c
-// x is a inverse of b and
-// y is a inverse of a
+// x is a inverse of b and y is a inverse of a

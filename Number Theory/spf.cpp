@@ -1,3 +1,4 @@
+const int MX = 1e6 + 2;
 int spf[MX];
 
 void pre_cal_spf() {
