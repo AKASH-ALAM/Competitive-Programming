@@ -1,0 +1,147 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Hello",
+            "request": "launch",
+            "mainClass": "java.vjudge.Hello",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - LargeDivision",
+            "request": "launch",
+            "mainClass": "java.vjudge.LargeDivision",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Recurrence",
+            "request": "launch",
+            "mainClass": "Spoj.Recurrence",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Spoj.Main",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - JULKA",
+            "request": "launch",
+            "mainClass": "Spoj.JULKA",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Multiplication",
+            "request": "launch",
+            "mainClass": "Spoj.Multiplication",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Solution",
+            "request": "launch",
+            "mainClass": "Spoj.Solution",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MUL_Fast_Multiplication",
+            "request": "launch",
+            "mainClass": "Spoj.MUL_Fast_Multiplication",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Big_Calculation",
+            "request": "launch",
+            "mainClass": "Big_Calculation",
+            "projectName": "Competitive-Programming_b39c0928"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - hello",
+            "request": "launch",
+            "mainClass": "hello"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Welcome",
+            "request": "launch",
+            "mainClass": "Welcome"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SuperAndSub",
+            "request": "launch",
+            "mainClass": "SuperAndSub",
+            "projectName": "Super class to sub class"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Prime_number/Prime",
+            "request": "launch",
+            "mainClass": "Prime_number/Prime",
+            "projectName": "Prime_number"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Bigone",
+            "request": "launch",
+            "mainClass": "Bigone",
+            "projectName": "Big"
+        },
+        {
+            "name": "g++ - Build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: g++ build active file",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "enter program name, for example ${workspaceFolder}/a.out",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        {
+            "name": "C/C++: clang++ build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang++ build active file"
+        }
+    ]
+}
