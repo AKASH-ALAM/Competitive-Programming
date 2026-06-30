@@ -1,4 +1,3 @@
-
 const int N = 1700000;
 const int MOD = 1e9 + 7;
 const ll P[] = {97, 1000003};
@@ -12,7 +11,6 @@ ll bigMod (ll a, ll e) {
   }
   return ret;
 }
-
 int pwr[2][N], inv[2][N];
 
 void initHash() {
@@ -25,7 +23,6 @@ void initHash() {
     }
   }
 }
-
 //Call initHash. The functions are 0 indexed.
 struct RangeHash {
   vector <int> h[2], rev[2];

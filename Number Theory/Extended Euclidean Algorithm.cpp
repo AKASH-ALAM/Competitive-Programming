@@ -13,3 +13,4 @@ int Ex_gcd(int a, int b, int &x, int &y) {
 }
 //ax + by = c
 // x is a inverse of b and y is a inverse of a
+// if gcd(a, m) = 1, then x is the moduler inverse of a mod m

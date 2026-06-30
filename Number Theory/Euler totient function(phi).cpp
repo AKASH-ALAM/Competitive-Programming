@@ -1,19 +1,4 @@
-
-const int mx = 32000; // is sqrt of : 1e9
-bitset <mx> isPrime;
-vector <int> prime;
-
-void sieve() {
-	isPrime.set();
-	prime.push_back(2);
-	for (int i = 3; i <= mx; i += 2) {
-		if (isPrime[i]) {
-			prime.push_back(i);
-			for (int j = i * i; j <= mx; j += i * 2) isPrime[j] = false;
-		}
-	}
-}
-
+const int MX = 1e6 + 5; // is sqrt of : 1e9
 
 int phi(int n) {
 	int result = n;
@@ -23,24 +8,17 @@ int phi(int n) {
 			result -= result / prime[i];
 		}
 	}
-	if (n > 1) {
-		result -= result / n;
-	}
-
+	if (n > 1) result -= result / n;
 	return result;
 }
 
 // 1 to n :- without sieve:
-
-void phi_1_to_n(int n) {
-	vector <int> phi(n + 1);
-	for (int i = 0; i <= n; i++)
-		phi[i] = i;
-
-	for (int i = 2; i <= n; i++) {
+int phi[MX];
+void phi_1_to_n() {
+	for (int i = 0; i < MX; i++) phi[i] = i;
+	for (int i = 2; i < MX; i++) {
 		if (phi[i] == i) {
-			for (int j = i; j <= n; j += i)
-				phi[j] -= phi[j] / i;
+			for (int j = i; j < MX; j += i) phi[j] -= phi[j] / i;
 		}
 	}
 }

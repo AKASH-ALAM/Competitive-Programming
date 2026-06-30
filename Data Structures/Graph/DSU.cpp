@@ -1,4 +1,4 @@
-struct DSU {        // O(4xalpha) = Constant time
+struct DSU {        // O(α(N))—Here α is Inverse Ackermann function। O(4xalpha) = Amortized Constant time
     vector <int> Sz, Par;
     DSU (int n) {
         Sz.resize(n + 1), Par.resize(n + 1);
@@ -11,10 +11,13 @@ struct DSU {        // O(4xalpha) = Constant time
         return Par[u] = Par[u] == u ? u : Find(Par[u]);
     }
 
-    void Union (int u, int v) {
+    bool Union (int u, int v) {
         u = Find(u), v = Find(v);
-        if (u == v) return;
+        if (u == v) return false;
         if(Sz[u] < Sz[v]) swap(u, v);
         Par[v] = u, Sz[u] += Sz[v];
+        return true;
     }
 };
+
+
